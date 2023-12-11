@@ -34,7 +34,7 @@ option_keyboard = [
 async def start(event):
     if not check_sudo(event.sender_id):
         return event.reply("Hello Sir,\n\nWelcome To Join The List of Group and Forward Your Message in Multiple Group. Contact The Owner to Buy this bot Click Below and Start Talking With My Boss\n\n        Thanks 🙏.", buttons=owner_keyboard) 
-    await event.reply("Hello Sir,\n\nWelcome To Join The List of Group and Forward Your Message in Multiple Group.\n There will be 2 Option\n\n1.Join The Group By List\n2.Forward Your Message in Multiple Group.", button=option_keyboard)
+    await event.reply("Hello Sir,\n\nWelcome To Join The List of Group and Forward Your Message in Multiple Group.\n There will be 2 Option\n\n1.Join The Group By List\n2.Forward Your Message in Multiple Group.", buttons=option_keyboard)
 
 
 # ==================== Start Client ==================#
