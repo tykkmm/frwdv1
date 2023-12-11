@@ -2,6 +2,11 @@
     "name":"Join Forward Bot",
     "description":"A Simple Telegram Bot Which Help You To Join And Forward Your Message",
     "repository":"https://github.com/TG-LEGEND",
+    "buildpacks": [
+        {
+            "url": "heroku/python"
+        }
+    ],
     "env": {
         "EXPIRY_DATE":{
             "description": "Write your Expiry Date Prize 80 dollar every 4 month + 10 dollar extra per month",
