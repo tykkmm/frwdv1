@@ -53,7 +53,6 @@ async def users(event):
                 content = f.read()
                 new_content = content.split("\n")
                 for i in new_content:
-                    print(i)
                     links.append(i)
             print(links)
             os.remove(downloaded)
