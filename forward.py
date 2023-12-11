@@ -41,6 +41,7 @@ links = []
 
 @client.on(events.callbackquery.CallbackQuery(data=re.compile(b"join")))
 async def users(event):
+    global links
     async with client.conversation(event.chat_id) as x:
         await x.send_message("GIVE ME TELETHON/PYROGRAM STRING SESSION")
         strses = await x.get_response()
@@ -51,8 +52,9 @@ async def users(event):
             with open(downloaded, "r") as f:
                 content = f.read()
                 new_content = content.split("\n")
-                await event.reply(content)
-                await event.reply(new_content)
+                for i in new_content:
+                    links.append(i)
+            await event.reply(links)
             os.remove(downloaded)
         except Exception as e:
             await event.reply(f"**Something Error in Downloading File : ** `{e}`", buttons=option_keyboard)
