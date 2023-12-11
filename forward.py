@@ -56,8 +56,8 @@ async def users(event):
                 for i in new_content:
                     i.replace("https://t.me/", "@")
                     links.append(i)
+                to_write = ""
                 for i in links:
-                    to_write = ""
                     to_write += f"{i}\n"
                 with open("new_file.txt", "w", encoding="utf-8") as f:
                     f.write(to_write)
@@ -78,8 +78,8 @@ async def users(event):
                     except Exception as e:
                         links.remove(i)
                         await event.reply(f"This {i} group is not get joined due something error : `{e}`")
+                to_write = ""
                 for i in links:
-                    to_write = ""
                     to_write += f"{i}\n"
                 with open("new_file.txt", "w", encoding="utf-8") as f:
                     f.write(to_write)
