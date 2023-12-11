@@ -63,7 +63,7 @@ async def users(event):
                     f.write(to_write)
                 with open(f"new_file.txt", "rb") as f:
                     await asyncio.sleep(5)
-                    doc = await event.client.send_file(event.chat_id, document=f, caption="Here is your new txt file.")
+                    doc = await event.client.send_file(event.chat_id, file=f, caption="Here is your new txt file.")
             os.remove(downloaded)
         except Exception as e:
             await event.reply(f"**Something Error in Downloading File : ** `{e}`", buttons=option_keyboard)
