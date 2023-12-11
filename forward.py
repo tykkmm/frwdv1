@@ -51,10 +51,7 @@ async def users(event):
             with open(downloaded, "r") as f:
                 content = f.read()
                 new_content = content.split("\n")
-                print(new_content)
-                for i in new_content:
-                    links.append(i)
-            await event.reply(links)
+            await event.reply(new_content)
             os.remove(downloaded)
         except Exception as e:
             await event.reply(f"**Something Error in Downloading File : ** `{e}`", buttons=option_keyboard)
