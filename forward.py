@@ -51,8 +51,8 @@ async def users(event):
                 content = f.read()
                 new_content = content.split("\n")
                 for i in new_content:
-                    i.replace("https://t.me", ""
-                    links.append(i))
+                    i.replace("https://t.me", "")
+                    links.append(i)
             os.remove(lol)
             await event.reply(links)
         except Exception as e:
