@@ -85,7 +85,7 @@ async def users(event):
                     f.write(to_write)
                 with open(f"new_file.txt", "rb") as f:
                     await asyncio.sleep(5)
-                    doc = await message.reply_document(document=f, caption="Here is your new txt file.")
+                    doc = await event.client.send_file(event.chat_id, document=f, caption="Here is your new txt file.")
         except Exception as e:
             LOGS.error(f"Error : {e}")
 
