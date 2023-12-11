@@ -54,10 +54,10 @@ async def users(event):
                 content = f.read()
                 new_content = content.split("\n")
                 for i in new_content:
-                    i.replace("https://t.me/", "@")
                     links.append(i)
                 to_write = ""
                 for i in links:
+                    i.replace("https://t.me/", "@").replace(" ", "").strip()
                     to_write += f"{i}\n"
                 with open("new_file.txt", "w", encoding="utf-8") as f:
                     f.write(to_write)
