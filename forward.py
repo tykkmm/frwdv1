@@ -53,12 +53,41 @@ async def users(event):
                 content = f.read()
                 new_content = content.split("\n")
                 for i in new_content:
+                    i.replace("https://t.me/", "@")
                     links.append(i)
-            print(links)
+                for i in links:
+                    to_write = ""
+                    to_write += f"{i}\n"
+                with open("new_file.txt", "w", encoding="utf-8") as f:
+                    f.write(to_write)
+                with open(f"new_file.txt", "rb") as f:
+                    await asyncio.sleep(5)
+                    doc = await message.reply_document(document=f, caption="Here is your new txt file.")
             os.remove(downloaded)
         except Exception as e:
             await event.reply(f"**Something Error in Downloading File : ** `{e}`", buttons=option_keyboard)
             os.remove(downloaded)
+        try:
+            if strses.text.endswith("="):
+                legend = TelegramClient(StringSession(strses.text),API_ID,API_HASH)   
+                await legend.connect()
+                for i in links:
+                    try:
+                        await legend(join(i))
+                    except Exception as e:
+                        links.remove(i)
+                        await event.reply(f"This {i} group is not get joined due something error : `{e}`")
+                for i in links:
+                    to_write = ""
+                    to_write += f"{i}\n"
+                with open("new_file.txt", "w", encoding="utf-8") as f:
+                    f.write(to_write)
+                with open(f"new_file.txt", "rb") as f:
+                    await asyncio.sleep(5)
+                    doc = await message.reply_document(document=f, caption="Here is your new txt file.")
+        except Exception as e:
+            LOGS.error(f"Error : {e}")
+
 
 
 # ==================== Start Client ==================#
