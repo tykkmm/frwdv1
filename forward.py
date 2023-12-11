@@ -40,7 +40,7 @@ links = []
 
 @client.on(events.callbackquery.CallbackQuery(data=re.compile(b"join")))
 async def users(event):
-    async with bot.conversation(event.chat_id) as x:
+    async with client.conversation(event.chat_id) as x:
         await x.send_message("GIVE ME TELETHON/PYROGRAM STRING SESSION")
         strses = await x.get_response()
         await x.send_message("GIVE ME THE FILE IN .TEXT EXTENSION FILE")
