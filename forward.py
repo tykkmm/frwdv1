@@ -50,11 +50,8 @@ async def users(event):
         try:
             with open(downloaded, "r") as f:
                 content = f.read()
-                print(content)
                 new_content = content.split("\n")
                 for i in new_content:
-                    i.replace("https://t.me/", "@")
-                    i.replace(" ", "")
                     links.append(i)
             await event.reply(links)
             os.remove(downloaded)
