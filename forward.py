@@ -45,7 +45,7 @@ async def users(event):
         strses = await x.get_response()
         await x.send_message("GIVE ME THE FILE IN .TEXT EXTENSION FILE")
         grpid = await x.get_response()
-        lol = await grpid.download()
+        lol = await grpid.download_media()
         try:
             with open(lol, "r") as f:
                 content = f.read()
