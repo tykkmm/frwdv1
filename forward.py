@@ -1,3 +1,4 @@
+import os
 from telethon import TelegramClient, events, functions, types, Button
 from config import *
 import logging
