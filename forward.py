@@ -52,7 +52,8 @@ async def users(event):
                 content = f.read()
                 new_content = content.split("\n")
                 print(new_content)
-                await event.client.send_message(event.chat_id, new_content)
+                await event.reply(content)
+                await event.reply(new_content)
             os.remove(downloaded)
         except Exception as e:
             await event.reply(f"**Something Error in Downloading File : ** `{e}`", buttons=option_keyboard)
