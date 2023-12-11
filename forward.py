@@ -46,19 +46,21 @@ async def users(event):
         strses = await x.get_response()
         await x.send_message("GIVE ME THE FILE IN .TEXT EXTENSION FILE")
         grpid = await x.get_response()
-        lol = await grpid.download_media()
+        downloaded = await grpid.download_media()
         try:
-            with open(lol, "r") as f:
+            with open(downloaded, "r") as f:
                 content = f.read()
+                print(content)
                 new_content = content.split("\n")
                 for i in new_content:
                     i.replace("https://t.me/", "@")
                     i.replace(" ", "")
                     links.append(i)
-            os.remove(lol)
             await event.reply(links)
+            os.remove(downloaded)
         except Exception as e:
-            await event.reply(f"Something Error in Downloading File {e}", buttons=option_keyboard)
+            await event.reply(f"**Something Error in Downloading File : ** `{e}`", buttons=option_keyboard)
+            os.remove(downloaded)
 
 
 # ==================== Start Client ==================#
