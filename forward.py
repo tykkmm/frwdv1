@@ -1,3 +1,4 @@
+import asyncio
 import os
 from telethon import TelegramClient, events, functions, types, Button
 from config import *
