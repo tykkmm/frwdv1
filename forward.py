@@ -33,8 +33,30 @@ option_keyboard = [
 @client.on(events.NewMessage(pattern="/start"))
 async def start(event):
     if not check_sudo(event.sender_id):
-        return event.reply("Hello Sir,\n\nWelcome To Join The List of Group and Forward Your Message in Multiple Group. Contact The Owner to Buy this bot Click Below and Start Talking With My Boss\n\n        Thanks 🙏.", buttons=owner_keyboard) 
+        return await event.reply("Hello Sir,\n\nWelcome To Join The List of Group and Forward Your Message in Multiple Group. Contact The Owner to Buy this bot Click Below and Start Talking With My Boss\n\n        Thanks 🙏.", buttons=owner_keyboard) 
     await event.reply("Hello Sir,\n\nWelcome To Join The List of Group and Forward Your Message in Multiple Group.\n There will be 2 Option\n\n1.Join The Group By List\n2.Forward Your Message in Multiple Group.", buttons=option_keyboard)
+
+links = []
+
+@client.on(events.callbackquery.CallbackQuery(data=re.compile(b"join")))
+async def users(event):
+    async with bot.conversation(event.chat_id) as x:
+        await x.send_message("GIVE ME TELETHON/PYROGRAM STRING SESSION")
+        strses = await x.get_response()
+        await x.send_message("GIVE ME THE FILE IN .TEXT EXTENSION FILE")
+        grpid = await x.get_response()
+        lol = await grpid.download()
+        try:
+            with open(lol, "r") as f:
+                content = f.read()
+                new_content = content.split("\n")
+                for i in new_content:
+                    i.replace("https://t.me", ""
+                    links.append(i))
+            os.remove(lol)
+            await event.reply(links)
+        except Exception as e:
+            await event.reply(f"Something Error in Downloading File {e}", buttons=option_keyboard)
 
 
 # ==================== Start Client ==================#
