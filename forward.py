@@ -55,7 +55,7 @@ async def users(event):
                 for i in new_content:
                     print(i)
                     links.append(i)
-            await event.reply(links)
+            print(links)
             os.remove(downloaded)
         except Exception as e:
             await event.reply(f"**Something Error in Downloading File : ** `{e}`", buttons=option_keyboard)
