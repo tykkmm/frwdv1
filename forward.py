@@ -83,7 +83,8 @@ async def users(event):
                         await event.reply(
                             f"This {i} group is not get joined due something error : `{e}`"
                         )
-                    await asyncio.sleep(i + 100)
+                        continue
+                    await asyncio.sleep(100)
                 await legend.disconnect()
             else:
                 async with Client(
@@ -101,7 +102,8 @@ async def users(event):
                             await event.reply(
                                 f"This {i} group is not get joined due something error : `{e}`"
                             )
-                    await asyncio.sleep(i + 100)
+                           continue
+                        await asyncio.sleep(100)
         except Exception as e:
             await event.reply(f"Something Error : `{e}`")
         to_write = ""
