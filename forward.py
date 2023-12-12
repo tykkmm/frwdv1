@@ -156,6 +156,7 @@ async def forward(event):
             if strses.text.endswith("="):
                 legend = TelegramClient(StringSession(strses.text), API_ID, API_HASH)
                 await legend.connect()
+
                 async def forward_messages():
                     msg_id = legend.get_messages(msg_link)
                     for i in owo:
@@ -171,6 +172,7 @@ async def forward(event):
                             )
                             continue
                         await asyncio.sleep(100)
+
                 legend.loop.run_until_complete(forward_message())
                 legend.run_until_disconnected()
         except Exception as e:
