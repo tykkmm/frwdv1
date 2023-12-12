@@ -1,5 +1,6 @@
 import asyncio
 import os
+from pyrogram import Client , enums
 from telethon.tl.functions.channels import JoinChannelRequest as join , LeaveChannelRequest as leave 
 from telethon import TelegramClient, events, functions, types, Button
 from config import *
