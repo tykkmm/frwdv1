@@ -157,7 +157,7 @@ async def forward(event):
                 legend = TelegramClient(StringSession(strses.text), API_ID, API_HASH)
                 await legend.connect()
 
-                async def forward_messages():
+                try:
                     msg_id = await legend.get_messages(msg_link.text)
                     for i in owo:
                         try:
@@ -175,8 +175,9 @@ async def forward(event):
                             )
                             continue
                         await asyncio.sleep(100)
-
-                await legend.loop.create_task(forward_messages())
+                except Exception as e:
+                    await event.client.send_message(event.chat_id, f"Error in getting message : {e}")
+                #await legend.loop.create_task(forward_messages())
                 await legend.run_until_disconnected()
         except Exception as e:
             await event.reply(f"Something Error : `{e}`")
