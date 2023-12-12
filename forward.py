@@ -138,7 +138,7 @@ async def forward(event):
         await x.send_message("GIVE ME THE LINK OF MESSAGE")
         msg_link = await x.get_response()
         try:
-            with open(downloaded, "r") as f:
+            with open(downloaa, "r") as f:
                 content = f.read()
                 new_content = content.split("\n")
                 for i in new_content:
