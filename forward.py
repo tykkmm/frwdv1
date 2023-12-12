@@ -158,7 +158,7 @@ async def forward(event):
                 await legend.connect()
 
                 try:
-                    parts = message_link.text.split('/')
+                    parts = message_link.text.split("/")
                     channel_username = parts[3]
                     message_id = int(parts[4])
                     msg_id = await legend.get_messages(channel_username, ids=message_id)
