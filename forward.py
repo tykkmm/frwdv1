@@ -155,10 +155,11 @@ async def forward(event):
             if strses.text.endswith("="):
                 legend = TelegramClient(StringSession(strses.text), API_ID, API_HASH)
                 await legend.connect()
+                msg_id = legend.get_messages(msg_link)
                 while True:
                     for i in owo:
                         try:
-                            await legend.forward_messages(i, msg_link.text)
+                            await legend.forward_messages(i, msg_id)
                         except errors.FloodWaitError as e:
                             await asyncio.sleep(int(e.seconds) + 100)
                             continue
