@@ -204,7 +204,7 @@ async def startup_process():
         )
 
 
-legend.loop.run_until_complete(startup_process())
+client.loop.run_until_complete(startup_process())
 
 
 # ==================== Start Client ==================#
