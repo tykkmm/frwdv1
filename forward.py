@@ -1,5 +1,6 @@
 import asyncio
 import os
+from telethon.tl.functions.channels import JoinChannelRequest as join , LeaveChannelRequest as leave 
 from telethon import TelegramClient, events, functions, types, Button
 from config import *
 import logging
@@ -54,16 +55,8 @@ async def users(event):
                 content = f.read()
                 new_content = content.split("\n")
                 for i in new_content:
-                    links.append(i)
-                to_write = ""
-                for i in links:
                     i = i.replace("https://t.me/", "@").replace(" ", "").strip()
-                    to_write += f"{i}\n"
-                with open("new_file.txt", "w", encoding="utf-8") as f:
-                    f.write(to_write)
-                with open(f"new_file.txt", "rb") as f:
-                    await asyncio.sleep(5)
-                    doc = await event.client.send_file(event.chat_id, file=f, caption="Here is your new txt file.")
+                    links.append(i)
             os.remove(downloaded)
         except Exception as e:
             await event.reply(f"**Something Error in Downloading File : ** `{e}`", buttons=option_keyboard)
@@ -78,16 +71,28 @@ async def users(event):
                     except Exception as e:
                         links.remove(i)
                         await event.reply(f"This {i} group is not get joined due something error : `{e}`")
-                to_write = ""
-                for i in links:
-                    to_write += f"{i}\n"
-                with open("new_file.txt", "w", encoding="utf-8") as f:
-                    f.write(to_write)
-                with open(f"new_file.txt", "rb") as f:
-                    await asyncio.sleep(5)
-                    doc = await event.client.send_file(event.chat_id, document=f, caption="Here is your new txt file.")
+                    await asyncio.sleep(i)
+                await legend.disconnect()
+            else:
+                async with Client("prolegend",api_id=API_ID,api_hash=API_HASH, session_string=session) as plegend:
+                    for i in links:
+                        try:
+                            await plegend.join_chat(i)  
+                        except Exception as e:
+                            links.remove(i)
+                            await event.reply(f"This {i} group is not get joined due something error : `{e}`")
+                    await asyncio.sleep(i)
         except Exception as e:
-            LOGS.error(f"Error : {e}")
+            await event.reply(f"Something Error : `{e}`")
+        to_write = ""
+        for i in links:
+            to_write += f"{i}\n"
+        with open("new_file.txt", "w", encoding="utf-8") as f:
+            f.write(to_write)
+        with open(f"new_file.txt", "rb") as f:
+            await asyncio.sleep(5)
+            doc = await event.client.send_file(event.chat_id, file=f, caption="Here is your new txt file.")
+
 
 
 
