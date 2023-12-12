@@ -76,29 +76,31 @@ async def users(event):
                 for i in links:
                     try:
                         await legend(join(i))
+                        await legend.send_message(i, "Thanks 🙏")
                     except Exception as e:
                         links.remove(i)
                         await event.reply(
                             f"This {i} group is not get joined due something error : `{e}`"
                         )
-                    await asyncio.sleep(i)
+                    await asyncio.sleep(i + 100)
                 await legend.disconnect()
             else:
                 async with Client(
                     "prolegend",
                     api_id=API_ID,
                     api_hash=API_HASH,
-                    session_string=session,
+                    session_string=strses.text,
                 ) as plegend:
                     for i in links:
                         try:
                             await plegend.join_chat(i)
+                            await legend.send_message(i, "Thanks 🙏")
                         except Exception as e:
                             links.remove(i)
                             await event.reply(
                                 f"This {i} group is not get joined due something error : `{e}`"
                             )
-                    await asyncio.sleep(i)
+                    await asyncio.sleep(i + 100)
         except Exception as e:
             await event.reply(f"Something Error : `{e}`")
         to_write = ""
