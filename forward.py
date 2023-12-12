@@ -122,7 +122,10 @@ async def users(event):
             doc = await event.client.send_file(
                 event.chat_id, file=f, caption="Here is your new txt file."
             )
+
+
 owo = []
+
 
 @client.on(events.callbackquery.CallbackQuery(data=re.compile(b"forward")))
 async def forward(event):
@@ -168,8 +171,7 @@ async def forward(event):
                     await asyncio.sleep(100)
                 await legend.disconnect()
         except Exception as e:
-            await event.reply(f"Something Error : `{e}`")                       
-
+            await event.reply(f"Something Error : `{e}`")
 
 
 # ==================== Start Client ==================#
