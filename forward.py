@@ -6,6 +6,7 @@ import re
 from pyrogram import Client
 from telethon import Button, TelegramClient, events
 from telethon.tl.functions.channels import JoinChannelRequest as join
+from telethon.sessions import StringSession 
 
 from config import *
 
