@@ -3,6 +3,7 @@ import logging
 import os
 import re
 
+from telethon import errors
 from pyrogram import Client
 from telethon import Button, TelegramClient, events
 from telethon.sessions import StringSession
@@ -78,6 +79,9 @@ async def users(event):
                     try:
                         await legend(join(i))
                         await legend.send_message(i, "Thanks 🙏")
+                    except errors.FloodWaitError as e:
+                         await asyncio.sleep(int(e.seconds) + 100)
+                         continue
                     except Exception as e:
                         links.remove(i)
                         await event.reply(
@@ -96,7 +100,10 @@ async def users(event):
                     for i in links:
                         try:
                             await plegend.join_chat(i)
-                            await legend.send_message(i, "Thanks 🙏")
+                            await plegend.send_message(i, "Thanks 🙏")
+                        except pyro_errors.FloodWait as e:
+                            await asyncio.sleep(int(e.value) + 100)
+                            continue
                         except Exception as e:
                             links.remove(i)
                             await event.reply(
