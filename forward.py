@@ -162,7 +162,9 @@ async def forward(event):
                     for i in owo:
                         try:
                             await legend.forward_messages(i, msg_id)
-                            await event.client.send_message(event.chat_id, f"Sended Message in {i} Group")
+                            await event.client.send_message(
+                                event.chat_id, f"Sended Message in {i} Group"
+                            )
                         except errors.FloodWaitError as e:
                             await asyncio.sleep(int(e.seconds) + 100)
                             continue
