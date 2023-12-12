@@ -157,19 +157,18 @@ async def forward(event):
                 legend = TelegramClient(StringSession(strses.text), API_ID, API_HASH)
                 await legend.connect()
                 msg_id = legend.get_messages(msg_link)
-                while True:
-                    for i in owo:
-                        try:
-                            await legend.forward_messages(i, msg_id)
-                        except errors.FloodWaitError as e:
-                            await asyncio.sleep(int(e.seconds) + 100)
-                            continue
-                        except Exception as e:
-                            owo.remove(i)
-                            await event.reply(
-                                f"Error in sending message in {i} due to : `{e}`"
-                            )
+                for i in owo:
+                    try:
+                        await legend.forward_messages(i, msg_id)
+                    except errors.FloodWaitError as e:
+                        await asyncio.sleep(int(e.seconds) + 100)
                         continue
+                    except Exception as e:
+                        owo.remove(i)
+                        await event.reply(
+                            f"Error in sending message in {i} due to : `{e}`"
+                        )
+                    continue
                     await asyncio.sleep(100)
                 await legend.disconnect()
         except Exception as e:
