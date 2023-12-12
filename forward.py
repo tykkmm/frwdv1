@@ -180,13 +180,28 @@ async def forward(event):
                         await asyncio.sleep(100)
                 except Exception as e:
                     await event.client.send_message(
-                        event.chat_id, f"Error in getting message : {e}"
+                        event.chat_id, f"Error in getting message : {e}", buttons=option_keyboard
                     )
-                # await legend.loop.create_task(forward_messages())
-                await legend.run_until_disconnected()
+                try:
+                    await legend.run_until_disconnected()
+                except Exception as e:
+                    LOGS.error(e)
         except Exception as e:
-            await event.reply(f"Something Error : `{e}`")
+            await event.reply(f"Something Error : `{e}`", buttons=option_keyboard)
+
+# ================== Start Function ===================
+
+async def startup_process():
+    for i in SUDO_USERS:
+        await client.send_file(i, file="https://telegra.ph/file/2707a66c92ba3c2e40cee.jpg", f"#START\n\nVersion:- α • 1.1\n\nYour Ads Promotion Bot Has Been Started Successfully")
+
+
+legend.loop.run_until_complete(startup_process())
 
 
 # ==================== Start Client ==================#
-client.run_until_disconnected()
+if len(sys.argv) in {1, 3, 4}:
+    with contextlib.suppress(ConnectionError):
+        client.run_until_disconnected()
+else:
+    client.disconnect()
