@@ -53,7 +53,7 @@ async def users(event):
     async with client.conversation(event.chat_id) as x:
         await x.send_message("GIVE ME TELETHON/PYROGRAM STRING SESSION")
         strses = await x.get_response()
-        await x.send_message("GIVE ME THE FILE IN .TEXT EXTENSION FILE")
+        await x.send_message("GIVE ME THE FILE IN .TXT EXTENSION FILE")
         grpid = await x.get_response()
         downloaded = await grpid.download_media()
         try:
@@ -122,6 +122,54 @@ async def users(event):
             doc = await event.client.send_file(
                 event.chat_id, file=f, caption="Here is your new txt file."
             )
+owo = []
+
+@client.on(events.callbackquery.CallbackQuery(data=re.compile(b"forward")))
+async def forward(event):
+    async with client.conversation(event.chat_id) as x:
+        await x.send_message("GIVE ME TELETHON/PYROGRAM STRING SESSION")
+        strses = await x.get_response()
+        await x.send_message("GIVE ME THE FILE IN .TXT EXTENSION FILE")
+        grpid = await x.get_response()
+        downloaa = await grpid.download_media()
+        await x.send_message("GIVE ME THE LINK OF MESSAGE")
+        msg_link = await x.get_response()
+        try:
+            with open(downloaded, "r") as f:
+                content = f.read()
+                new_content = content.split("\n")
+                for i in new_content:
+                    i = i.replace("https://t.me/", "@").replace(" ", "").strip()
+                    owo.append(i)
+            os.remove(downloaa)
+        except Exception as e:
+            await event.reply(
+                f"**Something Error in Downloading File : ** `{e}`",
+                buttons=option_keyboard,
+            )
+            os.remove(downloaa)
+        try:
+            if strses.text.endswith("="):
+                legend = TelegramClient(StringSession(strses.text), API_ID, API_HASH)
+                await legend.connect()
+                while True:
+                    for i in owo:
+                        try:
+                            await legend.forward_messages(i, msg_link.text)
+                        except errors.FloodWaitError as e:
+                            await asyncio.sleep(int(e.seconds) + 100)
+                            continue
+                        except Exception as e:
+                            links.remove(i)
+                            await event.reply(
+                                f"Error in sending message in {i} due to : `{e}`"
+                            )
+                        continue
+                    await asyncio.sleep(100)
+                await legend.disconnect()
+        except Exception as e:
+            await event.reply(f"Something Error : `{e}`")                       
+
 
 
 # ==================== Start Client ==================#
