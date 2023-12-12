@@ -129,6 +129,7 @@ owo = []
 
 @client.on(events.callbackquery.CallbackQuery(data=re.compile(b"forward")))
 async def forward(event):
+    global owo
     async with client.conversation(event.chat_id) as x:
         await x.send_message("GIVE ME TELETHON/PYROGRAM STRING SESSION")
         strses = await x.get_response()
