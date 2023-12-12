@@ -1,14 +1,17 @@
 import asyncio
-import os
-from pyrogram import Client , enums
-from telethon.tl.functions.channels import JoinChannelRequest as join , LeaveChannelRequest as leave 
-from telethon import TelegramClient, events, functions, types, Button
-from config import *
 import logging
+import os
 import re
+
+from pyrogram import Client
+from telethon import Button, TelegramClient, events
+from telethon.tl.functions.channels import JoinChannelRequest as join
+
+from config import *
+
 logging.basicConfig(level=logging.WARNING)
 LOGS = logging.getLogger()
-client = TelegramClient('LegendBoy', API_ID, API_HASH).start(bot_token=TOKEN)
+client = TelegramClient("LegendBoy", API_ID, API_HASH).start(bot_token=TOKEN)
 
 
 # ============== Function ====================
@@ -19,17 +22,10 @@ def check_sudo(user_id):
 
 
 # =================== Button =================
-owner_keyboard = [
-    [
-        Button.url("Owner", url="https://t.me/LegendBoy_OP")
-    ]
-]
+owner_keyboard = [[Button.url("Owner", url="https://t.me/LegendBoy_OP")]]
 
 option_keyboard = [
-    [
-        Button.inline("Join", data="join"),
-        Button.inline("Forward", data="forward")
-    ]
+    [Button.inline("Join", data="join"), Button.inline("Forward", data="forward")]
 ]
 
 
@@ -37,10 +33,18 @@ option_keyboard = [
 @client.on(events.NewMessage(pattern="/start"))
 async def start(event):
     if not check_sudo(event.sender_id):
-        return await event.reply("Hello Sir,\n\nWelcome To Join The List of Group and Forward Your Message in Multiple Group. Contact The Owner to Buy this bot Click Below and Start Talking With My Boss\n\n        Thanks 🙏.", buttons=owner_keyboard) 
-    await event.reply("Hello Sir,\n\nWelcome To Join The List of Group and Forward Your Message in Multiple Group.\n There will be 2 Option\n\n1.Join The Group By List\n2.Forward Your Message in Multiple Group.", buttons=option_keyboard)
+        return await event.reply(
+            "Hello Sir,\n\nWelcome To Join The List of Group and Forward Your Message in Multiple Group. Contact The Owner to Buy this bot Click Below and Start Talking With My Boss\n\n        Thanks 🙏.",
+            buttons=owner_keyboard,
+        )
+    await event.reply(
+        "Hello Sir,\n\nWelcome To Join The List of Group and Forward Your Message in Multiple Group.\n There will be 2 Option\n\n1.Join The Group By List\n2.Forward Your Message in Multiple Group.",
+        buttons=option_keyboard,
+    )
+
 
 links = []
+
 
 @client.on(events.callbackquery.CallbackQuery(data=re.compile(b"join")))
 async def users(event):
@@ -60,28 +64,40 @@ async def users(event):
                     links.append(i)
             os.remove(downloaded)
         except Exception as e:
-            await event.reply(f"**Something Error in Downloading File : ** `{e}`", buttons=option_keyboard)
+            await event.reply(
+                f"**Something Error in Downloading File : ** `{e}`",
+                buttons=option_keyboard,
+            )
             os.remove(downloaded)
         try:
             if strses.text.endswith("="):
-                legend = TelegramClient(StringSession(strses.text),API_ID,API_HASH)   
+                legend = TelegramClient(StringSession(strses.text), API_ID, API_HASH)
                 await legend.connect()
                 for i in links:
                     try:
                         await legend(join(i))
                     except Exception as e:
                         links.remove(i)
-                        await event.reply(f"This {i} group is not get joined due something error : `{e}`")
+                        await event.reply(
+                            f"This {i} group is not get joined due something error : `{e}`"
+                        )
                     await asyncio.sleep(i)
                 await legend.disconnect()
             else:
-                async with Client("prolegend",api_id=API_ID,api_hash=API_HASH, session_string=session) as plegend:
+                async with Client(
+                    "prolegend",
+                    api_id=API_ID,
+                    api_hash=API_HASH,
+                    session_string=session,
+                ) as plegend:
                     for i in links:
                         try:
-                            await plegend.join_chat(i)  
+                            await plegend.join_chat(i)
                         except Exception as e:
                             links.remove(i)
-                            await event.reply(f"This {i} group is not get joined due something error : `{e}`")
+                            await event.reply(
+                                f"This {i} group is not get joined due something error : `{e}`"
+                            )
                     await asyncio.sleep(i)
         except Exception as e:
             await event.reply(f"Something Error : `{e}`")
@@ -92,9 +108,9 @@ async def users(event):
             f.write(to_write)
         with open(f"new_file.txt", "rb") as f:
             await asyncio.sleep(5)
-            doc = await event.client.send_file(event.chat_id, file=f, caption="Here is your new txt file.")
-
-
+            doc = await event.client.send_file(
+                event.chat_id, file=f, caption="Here is your new txt file."
+            )
 
 
 # ==================== Start Client ==================#
