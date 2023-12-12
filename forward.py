@@ -158,7 +158,7 @@ async def forward(event):
                 await legend.connect()
 
                 async def forward_messages():
-                    msg_id = legend.get_messages(msg_link)
+                    msg_id = await legend.get_messages(msg_link)
                     for i in owo:
                         try:
                             await legend.forward_messages(i, msg_id)
