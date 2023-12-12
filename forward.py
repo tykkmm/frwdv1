@@ -173,7 +173,7 @@ async def forward(event):
                             continue
                         await asyncio.sleep(100)
 
-                legend.loop.run_until_complete(forward_message())
+                legend.loop.run_until_complete(forward_messages())
                 legend.run_until_disconnected()
         except Exception as e:
             await event.reply(f"Something Error : `{e}`")
