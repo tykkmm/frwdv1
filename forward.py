@@ -164,7 +164,7 @@ async def forward(event):
                             await asyncio.sleep(int(e.seconds) + 100)
                             continue
                         except Exception as e:
-                            links.remove(i)
+                            owo.remove(i)
                             await event.reply(
                                 f"Error in sending message in {i} due to : `{e}`"
                             )
