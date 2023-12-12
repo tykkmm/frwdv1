@@ -83,7 +83,6 @@ async def users(event):
                         await event.reply(
                             f"This {i} group is not get joined due something error : `{e}`"
                         )
-                        pass
                     await asyncio.sleep(i + 100)
                 await legend.disconnect()
             else:
