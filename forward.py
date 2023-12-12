@@ -3,9 +3,8 @@ import logging
 import os
 import re
 
-from telethon import errors
 from pyrogram import Client
-from telethon import Button, TelegramClient, events
+from telethon import Button, TelegramClient, errors, events
 from telethon.sessions import StringSession
 from telethon.tl.functions.channels import JoinChannelRequest as join
 
@@ -80,8 +79,8 @@ async def users(event):
                         await legend(join(i))
                         await legend.send_message(i, "Thanks 🙏")
                     except errors.FloodWaitError as e:
-                         await asyncio.sleep(int(e.seconds) + 100)
-                         continue
+                        await asyncio.sleep(int(e.seconds) + 100)
+                        continue
                     except Exception as e:
                         links.remove(i)
                         await event.reply(
