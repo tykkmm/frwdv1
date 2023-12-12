@@ -137,7 +137,7 @@ async def forward(event):
         grpid = await x.get_response()
         downloaa = await grpid.download_media()
         await x.send_message("GIVE ME THE LINK OF MESSAGE")
-        msg_link = await x.get_response()
+        message_link = await x.get_response()
         try:
             with open(downloaa, "r") as f:
                 content = f.read()
@@ -158,7 +158,10 @@ async def forward(event):
                 await legend.connect()
 
                 try:
-                    msg_id = await legend.get_messages(msg_link.text)
+                    parts = message_link.text.split('/')
+                    channel_username = parts[3]
+                    message_id = int(parts[4])
+                    msg_id = await legend.get_messages(channel_username, ids=message_id)
                     for i in owo:
                         try:
                             await legend.forward_messages(i, msg_id)
