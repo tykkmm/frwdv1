@@ -76,11 +76,6 @@ async def users(event):
             await event.client.send_message(
                 event.chat_id, f"Total Groups in the List: {len(links)}"
             )
-            if len(links) > 800:
-                return await event.client.send_message(
-                    event.chat_id,
-                    f"The Groups of List is greater than 800\nSo Edit and The file",
-                )
             if strses.text.endswith("="):
                 legend = TelegramClient(StringSession(strses.text), API_ID, API_HASH)
                 await legend.connect()
