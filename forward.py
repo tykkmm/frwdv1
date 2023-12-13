@@ -76,13 +76,22 @@ async def users(event):
             await event.client.send_message(
                 event.chat_id, f"Total Groups in the List: {len(list)}"
             )
+            if len(list) > 800:
+                return await event.client.send_message(event.chat_id, f"The Groups of List is greater than 800\nSo Edit and The file")
             if strses.text.endswith("="):
                 legend = TelegramClient(StringSession(strses.text), API_ID, API_HASH)
                 await legend.connect()
+                success = 0
+                fail = 0
                 for i in links:
+                    if i % 3 == 0:  
+                        time = 300
+                    else:
+                        time = 30
                     try:
                         await legend(join(i))
                         await legend.send_message(i, "Thanks 🙏")
+                        success += 1
                     except errors.FloodWaitError as e:
                         await event.client.send_message(
                             event.chat_id,
@@ -95,9 +104,11 @@ async def users(event):
                         await event.reply(
                             f"This {i} group is not get joined due something error : `{e}`"
                         )
+                        fail += 1
                         continue
-                    await asyncio.sleep(100)
+                    await asyncio.sleep(time)
                 await legend.disconnect()
+                await event.client.send_message(event.chat_id, f"Successfully Completed Your Task\nTotal Groups Joined : {success}\nTotal Fail : {fail}")
             else:
                 async with Client(
                     "prolegend",
