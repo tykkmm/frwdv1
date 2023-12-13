@@ -58,6 +58,8 @@ async def users(event):
         await x.send_message("GIVE ME THE FILE IN .TXT EXTENSION FILE")
         grpid = await x.get_response()
         downloaded = await grpid.download_media()
+        await x.send_message("GIVE ME THE LINK OF MESSAGE")
+        message_link = await x.get_response()
         try:
             with open(downloaded, "r") as f:
                 content = f.read()
@@ -81,10 +83,14 @@ async def users(event):
                 await legend.connect()
                 success = 0
                 fail = 0
+                parts = message_link.text.split("/")
+                channel_username = parts[3]
+                message_id = int(parts[4])
+                msg_id = await legend.get_messages(channel_username, ids=message_id)
                 for i in links:
                     try:
                         await legend(join(i))
-                        await legend.send_message(i, "Thanks 🙏")
+                        await legend.forward_messages(i, msg_id)
                         success += 1
                     except errors.FloodWaitError as e:
                         await event.client.send_message(
