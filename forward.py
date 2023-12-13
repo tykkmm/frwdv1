@@ -74,16 +74,18 @@ async def users(event):
             os.remove(downloaded)
         try:
             await event.client.send_message(
-                event.chat_id, f"Total Groups in the List: {len(links)}"
+                event.chat_id, f"Total Groups in the List: {len(links)}\nProcessing"
             )
             if strses.text.endswith("="):
                 legend = TelegramClient(StringSession(strses.text), API_ID, API_HASH)
                 await legend.connect()
                 success = 0
                 fail = 0
+                global success, fail
                 for i in links:
                     if len(links) % 3 == 0:
                         time = 300
+                        await event.client.send_message(event.chat_id, f"Till Now Groups Joined {success}\nTill Now Its Fail : {fail}")
                     else:
                         time = 30
                     try:
@@ -103,6 +105,7 @@ async def users(event):
                             f"This {i} group is not get joined due something error : `{f}`"
                         )
                         fail += 1
+                        time = 5
                         continue
                     await asyncio.sleep(time)
                 await legend.disconnect()
@@ -233,6 +236,7 @@ async def startup_process():
             i,
             file="https://telegra.ph/file/2707a66c92ba3c2e40cee.jpg",
             caption=f"#START\n\nVersion:- α • 1.0\n\nYour Ads Promotion Bot Has Been Started Successfully",
+            buttons=option_keyboard
         )
 
 
