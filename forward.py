@@ -108,6 +108,7 @@ async def users(event):
                             f"This {i} group is not get joined due something error : `{e}`"
                         )
                         fail += 1
+                        time = 5
                         continue
                     await asyncio.sleep(time)
                 await legend.disconnect()
