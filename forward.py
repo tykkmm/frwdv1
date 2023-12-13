@@ -82,7 +82,7 @@ async def users(event):
                 success = 0
                 fail = 0
                 for i in links:
-                    if i % 3 == 0:
+                    if len(links) % 3 == 0:
                         time = 300
                     else:
                         time = 30
