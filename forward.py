@@ -1,5 +1,5 @@
 import asyncio
-import contextlib
+import contextlib 
 import logging
 import os
 import re
@@ -51,7 +51,7 @@ links = []
 
 @client.on(events.callbackquery.CallbackQuery(data=re.compile(b"join")))
 async def users(event):
-    global links
+    global links, time
     async with client.conversation(event.chat_id) as x:
         await x.send_message("GIVE ME TELETHON/PYROGRAM STRING SESSION")
         strses = await x.get_response()
