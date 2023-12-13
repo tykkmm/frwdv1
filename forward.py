@@ -97,13 +97,12 @@ async def users(event):
                         )
                         await asyncio.sleep(int(e.seconds) + 100)
                         continue
-                    except Exception as e:
+                    except Exception as f:
                         links.remove(i)
                         await event.reply(
-                            f"This {i} group is not get joined due something error : `{e}`"
+                            f"This {i} group is not get joined due something error : `{f}`"
                         )
                         fail += 1
-                        time = 5
                         continue
                     await asyncio.sleep(time)
                 await legend.disconnect()
