@@ -74,9 +74,9 @@ async def users(event):
             os.remove(downloaded)
         try:
             await event.client.send_message(
-                event.chat_id, f"Total Groups in the List: {len(list)}"
+                event.chat_id, f"Total Groups in the List: {len(links)}"
             )
-            if len(list) > 800:
+            if len(links) > 800:
                 return await event.client.send_message(
                     event.chat_id,
                     f"The Groups of List is greater than 800\nSo Edit and The file",
