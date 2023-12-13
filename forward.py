@@ -51,7 +51,7 @@ links = []
 
 @client.on(events.callbackquery.CallbackQuery(data=re.compile(b"join")))
 async def users(event):
-    global links, success, time, fail
+    global links, success, fail
     async with client.conversation(event.chat_id) as x:
         await x.send_message("GIVE ME TELETHON/PYROGRAM STRING SESSION")
         strses = await x.get_response()
@@ -82,14 +82,6 @@ async def users(event):
                 success = 0
                 fail = 0
                 for i in links:
-                    if len(links) % 3 == 0:
-                        time = 300
-                        await event.client.send_message(
-                            event.chat_id,
-                            f"Till Now Groups Joined {success}\nTill Now Its Fail : {fail}",
-                        )
-                    else:
-                        time = 30
                     try:
                         await legend(join(i))
                         await legend.send_message(i, "Thanks 🙏")
@@ -107,8 +99,15 @@ async def users(event):
                             f"This {i} group is not get joined due something error : `{f}`"
                         )
                         fail += 1
-                        time = 5
                         continue
+                    if len(links) % 3 == 0:
+                        time = 300
+                        await event.client.send_message(
+                            event.chat_id,
+                            f"Till Now Groups Joined :  `{success}`\nTill Now Its Fail : `{fail}`",
+                        )
+                    else:
+                        time = 30
                     await asyncio.sleep(time)
                 await legend.disconnect()
                 await event.client.send_message(
