@@ -73,7 +73,9 @@ async def users(event):
             )
             os.remove(downloaded)
         try:
-            await event.client.send_message(event.chat_id, f"Total Groups in the List: {len(list)}")
+            await event.client.send_message(
+                event.chat_id, f"Total Groups in the List: {len(list)}"
+            )
             if strses.text.endswith("="):
                 legend = TelegramClient(StringSession(strses.text), API_ID, API_HASH)
                 await legend.connect()
@@ -164,7 +166,9 @@ async def forward(event):
             )
             os.remove(downloaa)
         try:
-            await event.client.send_message(event.chat_id, f"Total Groups in the list : {len(owo)}")
+            await event.client.send_message(
+                event.chat_id, f"Total Groups in the list : {len(owo)}"
+            )
             if strses.text.endswith("="):
                 legend = TelegramClient(StringSession(strses.text), API_ID, API_HASH)
                 await legend.connect()
