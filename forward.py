@@ -85,7 +85,10 @@ async def users(event):
                 for i in links:
                     if len(links) % 3 == 0:
                         time = 300
-                        await event.client.send_message(event.chat_id, f"Till Now Groups Joined {success}\nTill Now Its Fail : {fail}")
+                        await event.client.send_message(
+                            event.chat_id,
+                            f"Till Now Groups Joined {success}\nTill Now Its Fail : {fail}",
+                        )
                     else:
                         time = 30
                     try:
@@ -236,7 +239,7 @@ async def startup_process():
             i,
             file="https://telegra.ph/file/2707a66c92ba3c2e40cee.jpg",
             caption=f"#START\n\nVersion:- α • 1.0\n\nYour Ads Promotion Bot Has Been Started Successfully",
-            buttons=option_keyboard
+            buttons=option_keyboard,
         )
 
 
