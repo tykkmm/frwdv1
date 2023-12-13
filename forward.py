@@ -73,6 +73,7 @@ async def users(event):
             )
             os.remove(downloaded)
         try:
+            await event.client.send_message(event.chat_id, f"Total Groups in the List: {len(list)}")
             if strses.text.endswith("="):
                 legend = TelegramClient(StringSession(strses.text), API_ID, API_HASH)
                 await legend.connect()
@@ -81,11 +82,11 @@ async def users(event):
                         await legend(join(i))
                         await legend.send_message(i, "Thanks 🙏")
                     except errors.FloodWaitError as e:
-                        await asyncio.sleep(int(e.seconds) + 100)
                         await event.client.send_message(
                             event.chat_id,
-                            f"You have a floodwait of {e.value} Seconds\nPlease wait end of floodwait i will inform you",
+                            f"You have a floodwait of {e.seconds} Seconds\nPlease wait end of floodwait i will inform you",
                         )
+                        await asyncio.sleep(int(e.seconds) + 100)
                         continue
                     except Exception as e:
                         links.remove(i)
@@ -107,11 +108,11 @@ async def users(event):
                             await plegend.join_chat(i)
                             await plegend.send_message(i, "Thanks 🙏")
                         except pyro_errors.FloodWait as e:
-                            await asyncio.sleep(int(e.value) + 100)
                             await event.client.send_message(
                                 event.chat_id,
                                 f"You have a floodwait of {e.value} Seconds\nPlease wait end of floodwait i will inform you",
                             )
+                            await asyncio.sleep(int(e.value) + 100)
                             continue
                         except Exception as e:
                             links.remove(i)
@@ -163,6 +164,7 @@ async def forward(event):
             )
             os.remove(downloaa)
         try:
+            await event.client.send_message(event.chat_id, f"Total Groups in the list : {len(owo)}")
             if strses.text.endswith("="):
                 legend = TelegramClient(StringSession(strses.text), API_ID, API_HASH)
                 await legend.connect()
@@ -179,11 +181,11 @@ async def forward(event):
                                 event.chat_id, f"Sended Message in {i} Group"
                             )
                         except errors.FloodWaitError as e:
-                            await asyncio.sleep(int(e.seconds) + 100)
                             await event.client.send_message(
                                 event.chat_id,
-                                f"You have a floodwait of {e.value} Seconds\nPlease wait end of floodwait i will inform you",
+                                f"You have a floodwait of {e.seconds} Seconds\nPlease wait end of floodwait i will inform you",
                             )
+                            await asyncio.sleep(int(e.seconds) + 100)
                             continue
                         except Exception as e:
                             owo.remove(i)
