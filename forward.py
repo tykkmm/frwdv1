@@ -98,15 +98,13 @@ async def users(event):
                             f"You have a floodwait of {e.seconds} Seconds\nPlease wait end of floodwait i will inform you",
                         )
                         await asyncio.sleep(int(e.seconds) + 100)
-                        continue
                     except Exception as f:
                         links.remove(i)
                         await event.reply(
                             f"This {i} group is not get joined due something error : `{f}`"
                         )
                         fail += 1
-                        continue
-                    if len(links) % 3 == 0:
+                    if int(success) % 3 == 0:
                         time = 300
                         await event.client.send_message(
                             event.chat_id,
