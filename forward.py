@@ -82,6 +82,7 @@ async def users(event):
                         await legend.send_message(i, "Thanks 🙏")
                     except errors.FloodWaitError as e:
                         await asyncio.sleep(int(e.seconds) + 100)
+                        await event.client.send_message(event.chat_id, f"You have a floodwait of {e.value} Seconds\nPlease wait end of floodwait i will inform you")
                         continue
                     except Exception as e:
                         links.remove(i)
@@ -104,6 +105,7 @@ async def users(event):
                             await plegend.send_message(i, "Thanks 🙏")
                         except pyro_errors.FloodWait as e:
                             await asyncio.sleep(int(e.value) + 100)
+                            await event.client.send_message(event.chat_id, f"You have a floodwait of {e.value} Seconds\nPlease wait end of floodwait i will inform you")
                             continue
                         except Exception as e:
                             links.remove(i)
@@ -172,6 +174,7 @@ async def forward(event):
                             )
                         except errors.FloodWaitError as e:
                             await asyncio.sleep(int(e.seconds) + 100)
+                            await event.client.send_message(event.chat_id, f"You have a floodwait of {e.value} Seconds\nPlease wait end of floodwait i will inform you")
                             continue
                         except Exception as e:
                             owo.remove(i)
