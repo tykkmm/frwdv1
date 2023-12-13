@@ -51,7 +51,7 @@ links = []
 
 @client.on(events.callbackquery.CallbackQuery(data=re.compile(b"join")))
 async def users(event):
-    global links, time
+    global links, success, time, fail
     async with client.conversation(event.chat_id) as x:
         await x.send_message("GIVE ME TELETHON/PYROGRAM STRING SESSION")
         strses = await x.get_response()
@@ -81,7 +81,6 @@ async def users(event):
                 await legend.connect()
                 success = 0
                 fail = 0
-                global success, fail
                 for i in links:
                     if len(links) % 3 == 0:
                         time = 300
