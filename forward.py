@@ -97,7 +97,7 @@ async def users(event):
                 channel_username = parts[3]
                 message_id = int(parts[4])
                 msg_id = await legend.get_messages(channel_username, ids=message_id)
-                for i in range(int(initial_num), int(final_num)):
+                for i in range(int(initial_num.text), int(final_num.text)):
                     group_username = links[i]
                     final_links.append(group_username)
                     try:
