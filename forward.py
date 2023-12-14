@@ -83,7 +83,7 @@ async def users(event):
             await x.send_message(
                 "GIVE ME THE INITIAL NUMBER FROM WHICH YOU WANT TO START JOINING"
             )
-            await x.get_response()
+            initial_num = await x.get_response()
             await x.send_message(
                 "GIVE ME THE FINAL NUMBER FROM WHICH YOU WANT TO STOP JOINING"
             )
@@ -97,7 +97,7 @@ async def users(event):
                 channel_username = parts[3]
                 message_id = int(parts[4])
                 msg_id = await legend.get_messages(channel_username, ids=message_id)
-                for i in range(int(inital_num), int(final_num)):
+                for i in range(int(initial_num), int(final_num)):
                     group_username = links[i]
                     final_links.append(group_username)
                     try:
