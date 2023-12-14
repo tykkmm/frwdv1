@@ -49,6 +49,8 @@ async def start(event):
 links = []
 
 final_links = []
+
+
 @client.on(events.callbackquery.CallbackQuery(data=re.compile(b"join")))
 async def users(event):
     global links, success, fail
@@ -78,9 +80,13 @@ async def users(event):
             await event.client.send_message(
                 event.chat_id, f"Total Groups in the List: {len(links)}\nProcessing"
             )
-            await x.send_message("GIVE ME THE INITIAL NUMBER FROM WHICH YOU WANT TO START JOINING")
-            initial_num = await x.get_response()
-            await x.send_message("GIVE ME THE FINAL NUMBER FROM WHICH YOU WANT TO STOP JOINING")
+            await x.send_message(
+                "GIVE ME THE INITIAL NUMBER FROM WHICH YOU WANT TO START JOINING"
+            )
+            await x.get_response()
+            await x.send_message(
+                "GIVE ME THE FINAL NUMBER FROM WHICH YOU WANT TO STOP JOINING"
+            )
             final_num = await x.get_response
             if strses.text.endswith("="):
                 legend = TelegramClient(StringSession(strses.text), API_ID, API_HASH)
