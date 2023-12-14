@@ -46,8 +46,6 @@ async def start(event):
     )
 
 
-
-
 @client.on(events.callbackquery.CallbackQuery(data=re.compile(b"join")))
 async def users(event):
     links = []
