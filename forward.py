@@ -46,14 +46,12 @@ async def start(event):
     )
 
 
-links = []
-
-final_links = []
 
 
 @client.on(events.callbackquery.CallbackQuery(data=re.compile(b"join")))
 async def users(event):
-    global links, success, fail
+    links = []
+    final_links = []
     async with client.conversation(event.chat_id) as x:
         await x.send_message("GIVE ME TELETHON/PYROGRAM STRING SESSION")
         strses = await x.get_response()
