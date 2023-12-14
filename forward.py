@@ -48,7 +48,7 @@ async def start(event):
 
 links = []
 
-
+final_links = []
 @client.on(events.callbackquery.CallbackQuery(data=re.compile(b"join")))
 async def users(event):
     global links, success, fail
@@ -78,6 +78,10 @@ async def users(event):
             await event.client.send_message(
                 event.chat_id, f"Total Groups in the List: {len(links)}\nProcessing"
             )
+            await x.send_message("GIVE ME THE INITIAL NUMBER FROM WHICH YOU WANT TO START JOINING")
+            initial_num = await x.get_response()
+            await x.send_message("GIVE ME THE FINAL NUMBER FROM WHICH YOU WANT TO STOP JOINING")
+            final_num = await x.get_response
             if strses.text.endswith("="):
                 legend = TelegramClient(StringSession(strses.text), API_ID, API_HASH)
                 await legend.connect()
@@ -87,21 +91,25 @@ async def users(event):
                 channel_username = parts[3]
                 message_id = int(parts[4])
                 msg_id = await legend.get_messages(channel_username, ids=message_id)
-                for i in links:
+                for i in range(int(inital_num), int(final_num)):
+                    group_username = links[i]
+                    final_links.append(group_username)
                     try:
-                        await legend(join(i))
-                        await legend.forward_messages(i, msg_id)
+                        await legend(join(group_username))
+                        await legend.forward_messages(group_username, msg_id)
                         success += 1
                     except errors.FloodWaitError as e:
                         await event.client.send_message(
                             event.chat_id,
                             f"You have a floodwait of {e.seconds} Seconds\nPlease wait end of floodwait i will inform you",
                         )
-                        await asyncio.sleep(int(e.seconds) + 100)
+                        if e.seconds > 2000:
+                            pass
+                        else:
+                            await asyncio.sleep(int(e.seconds) + 100)
                     except Exception as f:
-                        links.remove(i)
                         await event.reply(
-                            f"This {i} group is not get joined due something error : `{f}`"
+                            f"This {group_username} group is not get joined due something error : `{f}`"
                         )
                         fail += 1
                     if int(success) % 3 == 0:
@@ -146,7 +154,7 @@ async def users(event):
         except Exception as e:
             await event.reply(f"Something Error : `{e}`")
         to_write = ""
-        for i in links:
+        for i in final_links:
             to_write += f"{i}\n"
         with open("new_file.txt", "w", encoding="utf-8") as f:
             f.write(to_write)
