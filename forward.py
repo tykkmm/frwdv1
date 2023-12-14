@@ -87,7 +87,7 @@ async def users(event):
             await x.send_message(
                 "GIVE ME THE FINAL NUMBER FROM WHICH YOU WANT TO STOP JOINING"
             )
-            final_num = await x.get_response
+            final_num = await x.get_response()
             if strses.text.endswith("="):
                 legend = TelegramClient(StringSession(strses.text), API_ID, API_HASH)
                 await legend.connect()
