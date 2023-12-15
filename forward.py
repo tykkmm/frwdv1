@@ -101,13 +101,26 @@ async def users(event):
                         await legend.forward_messages(group_username, msg_id)
                         success += 1
                     except errors.FloodWaitError as e:
-                        await event.client.send_message(
-                            event.chat_id,
-                            f"You have a floodwait of {e.seconds} Seconds\nPlease wait end of floodwait i will inform you",
-                        )
-                        if e.seconds > 2000:
-                            pass
+                        if int(e.seconds) > 2000:
+                            await event.client.send_message(
+                                event.chat_id,
+                                f"You have a floodwait of {int(e.seconds/60)} Minute & {int(e.seconds % 60)} Which is Greater Than 2000 So I am Skiping Rest Group \nSuccessfully Group Joined : {success}\nFail : {fail}",
+                            )
+                            to_write = ""
+                            for i in final_links:
+                                to_write += f"{i}\n"
+                            with open("new_file.txt", "w", encoding="utf-8") as f:
+                                f.write(to_write)
+                            with open(f"new_file.txt", "rb") as f:
+                                await asyncio.sleep(5)
+                            return await event.client.send_file(
+                                event.chat_id, file=f, caption="Here is your new txt file."
+                            )
                         else:
+                            await event.client.send_message(
+                                event.chat_id,
+                                f"You have a floodwait of {int(e.seconds/60)} Minute & {int(e.seconds % 60)}.Please Wait Be Patience \nTill Now Group Joined : {success}\nTill Now Fail : {fail}",
+                            )
                             await asyncio.sleep(int(e.seconds) + 100)
                     except Exception as f:
                         await event.reply(
@@ -167,12 +180,9 @@ async def users(event):
             )
 
 
-owo = []
-
-
 @client.on(events.callbackquery.CallbackQuery(data=re.compile(b"forward")))
 async def forward(event):
-    global owo
+    owo = []
     async with client.conversation(event.chat_id) as x:
         await x.send_message("GIVE ME TELETHON/PYROGRAM STRING SESSION")
         strses = await x.get_response()
@@ -202,7 +212,8 @@ async def forward(event):
             if strses.text.endswith("="):
                 legend = TelegramClient(StringSession(strses.text), API_ID, API_HASH)
                 await legend.connect()
-
+                success = 0
+                fail = 0
                 try:
                     parts = message_link.text.split("/")
                     channel_username = parts[3]
@@ -220,13 +231,11 @@ async def forward(event):
                                 f"You have a floodwait of {e.seconds} Seconds\nPlease wait end of floodwait i will inform you",
                             )
                             await asyncio.sleep(int(e.seconds) + 100)
-                            continue
                         except Exception as e:
                             owo.remove(i)
                             await event.reply(
                                 f"Error in sending message in {i} due to : `{e}`"
                             )
-                            continue
                         await asyncio.sleep(100)
                 except Exception as e:
                     await event.client.send_message(
