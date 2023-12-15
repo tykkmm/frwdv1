@@ -266,7 +266,9 @@ async def forward(event):
                     f"Successfully Completed Your Task\nTotal Groups Sended : {success}\nTotal Fail : {fail}",
                 )
         except Exception as e:
-            return await event.reply(f"Something Error : `{e}`", buttons=option_keyboard)
+            return await event.reply(
+                f"Something Error : `{e}`", buttons=option_keyboard
+            )
 
 
 # ================== Start Function ===================
