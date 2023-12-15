@@ -45,9 +45,22 @@ async def start(event):
         buttons=option_keyboard,
     )
 
+cancelj = False
+
+@client.on(events.NewMessage(pattern="/cj"))
+async def cancelj(event):
+    global cancelf
+    if not check_sudo(event.sender_id):
+        return await event.reply(
+            "Hello Sir,\n\nWelcome To Join The List of Group and Forward Your Message in Multiple Group. Contact The Owner to Buy this bot Click Below and Start Talking With My Boss\n\n        Thanks 🙏.",
+            buttons=owner_keyboard,
+        )
+    cancelj = False
+    return await event.reply("Cancelled Joining Group")
 
 @client.on(events.callbackquery.CallbackQuery(data=re.compile(b"join")))
 async def users(event):
+    global cancelj
     links = []
     final_links = []
     async with client.conversation(event.chat_id) as x:
@@ -84,6 +97,7 @@ async def users(event):
                 "GIVE ME THE FINAL NUMBER FROM WHICH YOU WANT TO STOP JOINING"
             )
             final_num = await x.get_response()
+            cancelj = True
             if strses.text.endswith("="):
                 legend = TelegramClient(StringSession(strses.text), API_ID, API_HASH)
                 await legend.connect()
@@ -94,6 +108,21 @@ async def users(event):
                 message_id = int(parts[4])
                 msg_id = await legend.get_messages(channel_username, ids=message_id)
                 for i in range(int(initial_num.text), int(final_num.text)):
+                    while cancelj == False:
+                        await event.client.send_message(
+                            event.chat_id,
+                            f"Successfully Cancelled and Till Completed Your Task\nTotal Groups Joined : {success}\nTotal Fail : {fail}",
+                        )
+                        to_write = ""
+                        for i in final_links:
+                            to_write += f"{i}\n"
+                            with open("new_file.txt", "w", encoding="utf-8") as f:
+                                f.write(to_write)
+                            with open(f"new_file.txt", "rb") as f:
+                                await asyncio.sleep(5)
+                            return await event.client.send_file(
+                                event.chat_id, file=f, caption="Here is your new txt file."
+                            )
                     group_username = links[i]
                     final_links.append(group_username)
                     try:
@@ -182,8 +211,23 @@ async def users(event):
             )
 
 
+cancelf = False
+
+@client.on(events.NewMessage(pattern="/cf"))
+async def cancelf(event):
+    global cancelf
+    if not check_sudo(event.sender_id):
+        return await event.reply(
+            "Hello Sir,\n\nWelcome To Join The List of Group and Forward Your Message in Multiple Group. Contact The Owner to Buy this bot Click Below and Start Talking With My Boss\n\n        Thanks 🙏.",
+            buttons=owner_keyboard,
+        )
+    cancelf = False
+    return await event.reply("Cancelled Forwarding Group")
+
+
 @client.on(events.callbackquery.CallbackQuery(data=re.compile(b"forward")))
 async def forward(event):
+    global cancelf
     owo = []
     async with client.conversation(event.chat_id) as x:
         await x.send_message("GIVE ME TELETHON/PYROGRAM STRING SESSION")
@@ -211,6 +255,7 @@ async def forward(event):
             await event.client.send_message(
                 event.chat_id, f"Total Groups in the list : {len(owo)}"
             )
+            cancelf = True
             if strses.text.endswith("="):
                 legend = TelegramClient(StringSession(strses.text), API_ID, API_HASH)
                 await legend.connect()
@@ -222,6 +267,11 @@ async def forward(event):
                     message_id = int(parts[4])
                     msg_id = await legend.get_messages(channel_username, ids=message_id)
                     for i in owo:
+                        while cancelf == False:
+                            return await event.client.send_message(
+                                event.chat_id,
+                                f"Successfully Cancelled and Till Completed Your Task\nTotal Groups Joined : {success}\nTotal Fail : {fail}",
+                            )
                         try:
                             await legend.forward_messages(i, msg_id)
                             success += 1
@@ -243,14 +293,18 @@ async def forward(event):
                             )
                             fail += 1
                         if int(success) % 10 == 0:
-                            time = 300
+                            time = 600
                             await event.client.send_message(
                                 event.chat_id,
                                 f"Till Now Groups in Sended :  `{success}`\nTill Now Its Fail : `{fail}`",
                             )
                         else:
-                            time = 10
+                            time = 30
                         await asyncio.sleep(time)
+                    await event.client.send_message(
+                        event.chat_id,
+                        f"Successfully Completed Your Task\nTotal Groups Forwarded : {success}\nTotal Fail : {fail}",
+                    )
                 except Exception as e:
                     await event.client.send_message(
                         event.chat_id,
