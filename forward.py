@@ -45,7 +45,9 @@ async def start(event):
         buttons=option_keyboard,
     )
 
+
 cancelj = False
+
 
 @client.on(events.NewMessage(pattern="/cj"))
 async def cancelj(event):
@@ -55,8 +57,8 @@ async def cancelj(event):
             "Hello Sir,\n\nWelcome To Join The List of Group and Forward Your Message in Multiple Group. Contact The Owner to Buy this bot Click Below and Start Talking With My Boss\n\n        Thanks 🙏.",
             buttons=owner_keyboard,
         )
-    cancelj = False
     return await event.reply("Cancelled Joining Group")
+
 
 @client.on(events.callbackquery.CallbackQuery(data=re.compile(b"join")))
 async def users(event):
@@ -121,7 +123,9 @@ async def users(event):
                             with open(f"new_file.txt", "rb") as f:
                                 await asyncio.sleep(5)
                             return await event.client.send_file(
-                                event.chat_id, file=f, caption="Here is your new txt file."
+                                event.chat_id,
+                                file=f,
+                                caption="Here is your new txt file.",
                             )
                     group_username = links[i]
                     final_links.append(group_username)
@@ -212,6 +216,7 @@ async def users(event):
 
 
 cancelf = False
+
 
 @client.on(events.NewMessage(pattern="/cf"))
 async def cancelf(event):
