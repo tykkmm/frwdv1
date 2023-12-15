@@ -114,7 +114,9 @@ async def users(event):
                             with open(f"new_file.txt", "rb") as f:
                                 await asyncio.sleep(5)
                             return await event.client.send_file(
-                                event.chat_id, file=f, caption="Here is your new txt file."
+                                event.chat_id,
+                                file=f,
+                                caption="Here is your new txt file.",
                             )
                         else:
                             await event.client.send_message(
@@ -212,8 +214,6 @@ async def forward(event):
             if strses.text.endswith("="):
                 legend = TelegramClient(StringSession(strses.text), API_ID, API_HASH)
                 await legend.connect()
-                success = 0
-                fail = 0
                 try:
                     parts = message_link.text.split("/")
                     channel_username = parts[3]
