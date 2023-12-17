@@ -51,12 +51,15 @@ cancelj = False
 
 @client.on(events.NewMessage(pattern="/cj"))
 async def cancelj(event):
-    global cancelf
+    global cancelj
     if not check_sudo(event.sender_id):
         return await event.reply(
             "Hello Sir,\n\nWelcome To Join The List of Group and Forward Your Message in Multiple Group. Contact The Owner to Buy this bot Click Below and Start Talking With My Boss\n\n        Thanks 🙏.",
             buttons=owner_keyboard,
         )
+    if cancelj == False:
+        return await event.reply("There is no any task is running to stop joining")
+    cancelj = False
     return await event.reply("Cancelled Joining Group")
 
 
@@ -118,20 +121,20 @@ async def users(event):
                         to_write = ""
                         for i in final_links:
                             to_write += f"{i}\n"
-                            with open("new_file.txt", "w", encoding="utf-8") as f:
-                                f.write(to_write)
-                            with open(f"new_file.txt", "rb") as f:
-                                await asyncio.sleep(5)
-                            return await event.client.send_file(
-                                event.chat_id,
-                                file=f,
-                                caption="Here is your new txt file.",
-                            )
+                        with open("new_file.txt", "w", encoding="utf-8") as f:
+                            f.write(to_write)
+                        with open(f"new_file.txt", "rb") as f:
+                            await asyncio.sleep(5)
+                        return await event.client.send_file(
+                            event.chat_id,
+                            file=f,
+                            caption="Here is your new txt file.",
+                        )
                     group_username = links[i]
-                    final_links.append(group_username)
                     try:
                         await legend(join(group_username))
                         await legend.forward_messages(group_username, msg_id)
+                        final_links.append(group_username)
                         success += 1
                     except errors.FloodWaitError as e:
                         if int(e.seconds) > 2000:
@@ -146,11 +149,11 @@ async def users(event):
                                 f.write(to_write)
                             with open(f"new_file.txt", "rb") as f:
                                 await asyncio.sleep(5)
-                            return await event.client.send_file(
-                                event.chat_id,
-                                file=f,
-                                caption="Here is your new txt file.",
-                            )
+                                return await event.client.send_file(
+                                    event.chat_id,
+                                    file=f,
+                                    caption="Here is your new txt file.",
+                                )
                         else:
                             await event.client.send_message(
                                 event.chat_id,
@@ -226,6 +229,8 @@ async def cancelf(event):
             "Hello Sir,\n\nWelcome To Join The List of Group and Forward Your Message in Multiple Group. Contact The Owner to Buy this bot Click Below and Start Talking With My Boss\n\n        Thanks 🙏.",
             buttons=owner_keyboard,
         )
+    if cancelf == False:
+        return await event.reply("There is no any task is running to stop Forwarding")
     cancelf = False
     return await event.reply("Cancelled Forwarding Group")
 
@@ -304,7 +309,7 @@ async def forward(event):
                                 f"Till Now Groups in Sended :  `{success}`\nTill Now Its Fail : `{fail}`",
                             )
                         else:
-                            time = 30
+                            time = 3
                         await asyncio.sleep(time)
                     await event.client.send_message(
                         event.chat_id,
