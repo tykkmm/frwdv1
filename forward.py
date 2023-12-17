@@ -125,11 +125,11 @@ async def users(event):
                             f.write(to_write)
                         with open(f"new_file.txt", "rb") as f:
                             await asyncio.sleep(5)
-                        return await event.client.send_file(
-                            event.chat_id,
-                            file=f,
-                            caption="Here is your new txt file.",
-                        )
+                            return await event.client.send_file(
+                                event.chat_id,
+                                file=f,
+                                caption="Here is your new txt file.",
+                            )
                     group_username = links[i]
                     try:
                         await legend(join(group_username))
