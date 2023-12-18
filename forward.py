@@ -302,8 +302,8 @@ async def forward(event):
                                 f"Error in sending message in {i} due to : `{e}`"
                             )
                             fail += 1
-                        if int(success) % 30 == 0:
-                            time = 600
+                        if int(success) % 100 == 0:
+                            time = 100
                             await event.client.send_message(
                                 event.chat_id,
                                 f"Till Now Groups in Sended :  `{success}`\nTill Now Its Fail : `{fail}`",
