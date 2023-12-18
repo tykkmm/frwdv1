@@ -4,6 +4,7 @@ import logging
 import os
 import re
 import sys
+import random
 
 from pyrogram import Client
 from telethon import Button, TelegramClient, errors, events
@@ -166,13 +167,13 @@ async def users(event):
                         )
                         fail += 1
                     if int(success) % 3 == 0:
-                        time = 300
+                        time = random.randit(300, 400)
                         await event.client.send_message(
                             event.chat_id,
                             f"Till Now Groups Joined :  `{success}`\nTill Now Its Fail : `{fail}`",
                         )
                     else:
-                        time = 30
+                        time = random.randit(30, 60)
                     await asyncio.sleep(time)
                 await legend.disconnect()
                 await event.client.send_message(
@@ -302,14 +303,14 @@ async def forward(event):
                                 f"Error in sending message in {i} due to : `{e}`"
                             )
                             fail += 1
-                        if int(success) % 100 == 0:
-                            time = 100
+                        if int(success) % 600 == 0:
+                            time = random.randit(1800, 2500)
                             await event.client.send_message(
                                 event.chat_id,
                                 f"Till Now Groups in Sended :  `{success}`\nTill Now Its Fail : `{fail}`",
                             )
                         else:
-                            time = 1
+                            time = random.randit(1, 5)
                         await asyncio.sleep(time)
                     await event.client.send_message(
                         event.chat_id,
