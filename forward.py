@@ -2,9 +2,9 @@ import asyncio
 import contextlib
 import logging
 import os
+import random
 import re
 import sys
-import random
 
 from pyrogram import Client
 from telethon import Button, TelegramClient, errors, events
