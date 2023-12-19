@@ -264,7 +264,7 @@ async def forward(event):
                             while cancelf == False:
                                 return await event.client.send_message(
                                     event.chat_id,
-                                    f"Successfully Cancelled and Till Completed Your Task\nTotal Groups Joined : {success}\nTotal Fail : {fail}",
+                                    f"Successfully Cancelled and Till Completed Your Task\nTotal Groups in Sended : {success}\nTotal Fail : {fail}",
                                 )
                             try:
                                 await legend.forward_messages(i, msg_id)
@@ -280,7 +280,7 @@ async def forward(event):
                                     f"Error in sending message in {i} due to : `{e}`"
                                 )
                                 fail += 1
-                            if int(success) % 600 == 0:
+                            if int(success) % 400 == 0:
                                 time = random.randint(1800, 2500)
                                 await event.client.send_message(
                                     event.chat_id,
