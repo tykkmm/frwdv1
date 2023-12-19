@@ -138,29 +138,11 @@ async def users(event):
                         final_links.append(group_username)
                         success += 1
                     except errors.FloodWaitError as e:
-                        if int(e.seconds) > 2000:
-                            await event.client.send_message(
-                                event.chat_id,
-                                f"You have a floodwait of {int(e.seconds/60)} Minute & {int(e.seconds % 60)} Seconds. Which is Greater Than 2000 So I am Skiping Rest Group \nSuccessfully Group Joined : {success}\nFail : {fail}",
-                            )
-                            to_write = ""
-                            for i in final_links:
-                                to_write += f"{i}\n"
-                            with open("new_file.txt", "w", encoding="utf-8") as f:
-                                f.write(to_write)
-                            with open(f"new_file.txt", "rb") as f:
-                                await asyncio.sleep(5)
-                                return await event.client.send_file(
-                                    event.chat_id,
-                                    file=f,
-                                    caption="Here is your new txt file.",
-                                )
-                        else:
-                            await event.client.send_message(
-                                event.chat_id,
-                                f"You have a floodwait of {int(e.seconds/60)} Minute & {int(e.seconds % 60)} Seconds .Please Wait Be Patience \nTill Now Group Joined : {success}\nTill Now Fail : {fail}",
-                            )
-                            await asyncio.sleep(int(e.seconds) + 100)
+                        await event.client.send_message(
+                            event.chat_id,
+                            f"You have a floodwait of {int(e.seconds/60)} Minute & {int(e.seconds % 60)} Seconds .Please Wait Be Patience \nTill Now Group Joined : {success}\nTill Now Fail : {fail}",
+                        )
+                        await asyncio.sleep(int(e.seconds) + 100)
                     except Exception as f:
                         await event.reply(
                             f"This {group_username} group is not get joined due something error : `{f}`"
@@ -277,45 +259,33 @@ async def forward(event):
                     channel_username = parts[3]
                     message_id = int(parts[4])
                     msg_id = await legend.get_messages(channel_username, ids=message_id)
-                    for i in owo:
-                        while cancelf == False:
-                            return await event.client.send_message(
-                                event.chat_id,
-                                f"Successfully Cancelled and Till Completed Your Task\nTotal Groups Joined : {success}\nTotal Fail : {fail}",
-                            )
-                        try:
-                            await legend.forward_messages(i, msg_id)
-                            success += 1
-                        except errors.FloodWaitError as e:
-                            if int(e.seconds) > 2000:
+                    while True:
+                        for i in owo:
+                            while cancelf == False:
                                 return await event.client.send_message(
                                     event.chat_id,
-                                    f"You have a floodwait of {int(e.seconds/60)} Minute & {int(e.seconds % 60)} seconds. Which is Greater Than 2000 So I am Skiping Rest Group \nSuccessfully Sended Message in : {success}\nFail : {fail}",
+                                    f"Successfully Cancelled and Till Completed Your Task\nTotal Groups Joined : {success}\nTotal Fail : {fail}",
                                 )
-                            else:
+                            try:
+                                await legend.forward_messages(i, msg_id)
+                                success += 1
+                            except errors.FloodWaitError as e:
+                                await event.client.send_message(event.chat_id,f"You have a floodwait of {int(e.seconds/60)} Minute & {int(e.seconds % 60)}.Please Wait Be Patience \nTill Now Group Joined : {success}\nTill Now Fail : {fail}")
+                                await asyncio.sleep(int(e.seconds) + 100)
+                            except Exception as e:
+                                await event.reply(
+                                    f"Error in sending message in {i} due to : `{e}`"
+                                )
+                                fail += 1
+                            if int(success) % 600 == 0:
+                                time = random.randint(1800, 2500)
                                 await event.client.send_message(
                                     event.chat_id,
-                                    f"You have a floodwait of {int(e.seconds/60)} Minute & {int(e.seconds % 60)}.Please Wait Be Patience \nTill Now Group Joined : {success}\nTill Now Fail : {fail}",
+                                    f"Till Now Groups in Sended :  `{success}`\nTill Now Its Fail : `{fail}`",
                                 )
-                                await asyncio.sleep(int(e.seconds) + 100)
-                        except Exception as e:
-                            await event.reply(
-                                f"Error in sending message in {i} due to : `{e}`"
-                            )
-                            fail += 1
-                        if int(success) % 600 == 0:
-                            time = random.randint(1800, 2500)
-                            await event.client.send_message(
-                                event.chat_id,
-                                f"Till Now Groups in Sended :  `{success}`\nTill Now Its Fail : `{fail}`",
-                            )
-                        else:
-                            time = random.randint(1, 5)
-                        await asyncio.sleep(time)
-                    await event.client.send_message(
-                        event.chat_id,
-                        f"Successfully Completed Your Task\nTotal Groups Forwarded : {success}\nTotal Fail : {fail}",
-                    )
+                            else:
+                                time = random.randint(1, 5)
+                            await asyncio.sleep(time)
                 except Exception as e:
                     await event.client.send_message(
                         event.chat_id,
