@@ -272,7 +272,7 @@ async def forward(event):
                             except errors.FloodWaitError as e:
                                 await event.client.send_message(
                                     event.chat_id,
-                                    f"You have a floodwait of {int(e.seconds/60)} Minute & {int(e.seconds % 60)}.Please Wait Be Patience \nTill Now Group Joined : {success}\nTill Now Fail : {fail}",
+                                    f"You have a floodwait of {int(e.seconds/60)} Minute & {int(e.seconds % 60)}.Please Wait Be Patience \nTill Now Group in sended : {success}\nTill Now Fail : {fail}",
                                 )
                                 await asyncio.sleep(int(e.seconds) + 100)
                             except Exception as e:
