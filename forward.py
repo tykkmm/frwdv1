@@ -290,7 +290,7 @@ async def forward(event):
                                 )
                             else:
                                 stime = random.randint(1, 5)
-                            time.sleep(stime)
+                            await asyncio.sleep(stime)
                 except Exception as e:
                     await event.client.send_message(
                         event.chat_id,
@@ -347,7 +347,7 @@ async def forward(event):
                                     )
                                 else:
                                     stime = random.randint(2, 7)
-                                time.sleep(stime)
+                                await asyncio.sleep(stime)
                     except Exception as e:
                         await event.client.send_message(
                             event.chat_id,
