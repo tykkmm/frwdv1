@@ -314,7 +314,7 @@ async def forward(event):
                     try:
                         success = 0
                         fail = 0
-                        msg_id = await plegend.get_messages(message_link)
+                        msg_id = await plegend.get_messages(message_link.text)
                         while True:
                             for i in owo:
                                 while cancelf == False:
