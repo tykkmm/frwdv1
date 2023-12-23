@@ -236,7 +236,6 @@ async def forward(event):
         channel_username = parts[3]
         message_id = int(parts[4])
         msg_id = await event.client.get_messages(channel_username, ids=message_id)
-        print(msg_id)
         try:
             with open(downloaa, "r") as f:
                 content = f.read()
