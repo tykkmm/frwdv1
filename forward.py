@@ -322,6 +322,7 @@ async def forward(event):
                         msg_id = await plegend.get_messages(
                             channel_username, message_ids=message_id
                         )
+                        print(msg_id)
                         while True:
                             for i in owo:
                                 while cancelf == False:
