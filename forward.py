@@ -314,7 +314,10 @@ async def forward(event):
                     try:
                         success = 0
                         fail = 0
-                        msg_id = await plegend.get_messages(message_link.text)
+                        parts = message_link.text.split("/")
+                        channel_username = parts[3]
+                        message_id = int(parts[4])
+                        msg_id = await plegend.get_messages(channel_username, ids=message_id)
                         while True:
                             for i in owo:
                                 while cancelf == False:
@@ -324,7 +327,7 @@ async def forward(event):
                                     )
                                 try:
                                     await plegend.forward_messages(
-                                        chat_id, msg_id.message_id
+                                        chat_id, msg_id
                                     )
                                     success += 1
                                 except pyro_errors.FloodWait as e:
