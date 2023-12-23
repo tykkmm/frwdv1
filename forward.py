@@ -6,6 +6,7 @@ import random
 import re
 import sys
 import time
+
 from pyrogram import Client
 from telethon import Button, TelegramClient, errors, events
 from telethon.sessions import StringSession
@@ -314,12 +315,12 @@ async def forward(event):
                     try:
                         success = 0
                         fail = 0
-                        #parts = message_link.text.split("/")
-                        #channel_username = parts[3]
-                        #message_id = int(parts[4])
-                        #msg_id = await plegend.get_messages(
-                            #channel_username, message_ids=message_id
-                        #)
+                        # parts = message_link.text.split("/")
+                        # channel_username = parts[3]
+                        # message_id = int(parts[4])
+                        # msg_id = await plegend.get_messages(
+                        # channel_username, message_ids=message_id
+                        # )
                         while True:
                             for i in owo:
                                 while cancelf == False:
