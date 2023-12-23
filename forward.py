@@ -8,6 +8,7 @@ import sys
 import time
 
 from pyrogram import Client
+from pyrogram import errors as pyro_errors
 from telethon import Button, TelegramClient, errors, events
 from telethon.sessions import StringSession
 from telethon.tl.functions.channels import JoinChannelRequest as join
