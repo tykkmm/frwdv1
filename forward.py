@@ -292,13 +292,14 @@ async def forward(event):
                 except Exception as e:
                     await event.client.send_message(
                         event.chat_id,
-                        f"Error in getting message : {e}",
+                        f"Error in getting message :` {e}`",
                         buttons=option_keyboard,
                     )
                 try:
-                    await legend.run_until_disconnected()
+                    await legend.disconnect()
+                    #await legend.run_until_disconnected()
                 except Exception as e:
-                    LOGS.error(e)
+                    await event.client.send_message(event.chat_id, f"Error While Disconnect Session : `{e}`",buttons=option_keyboard) 
             else:
                 async with Client(
                     "prolegend",
