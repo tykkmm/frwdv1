@@ -260,9 +260,7 @@ async def forward(event):
                     parts = message_link.text.split("/")
                     channel_username = parts[3]
                     message_id = int(parts[4])
-                    msg_id = await legend.get_messages(
-                        channel_username, ids=message_id
-                    )
+                    msg_id = await legend.get_messages(channel_username, ids=message_id)
                     while True:
                         for i in owo:
                             while cancelf == False:
