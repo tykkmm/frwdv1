@@ -5,7 +5,7 @@ import os
 import random
 import re
 import sys
-
+import time
 from pyrogram import Client
 from telethon import Button, TelegramClient, errors, events
 from telethon.sessions import StringSession
@@ -142,21 +142,21 @@ async def users(event):
                             event.chat_id,
                             f"You have a floodwait of {int(e.seconds/60)} Minute & {int(e.seconds % 60)} Seconds .Please Wait Be Patience \nTill Now Group Joined : {success}\nTill Now Fail : {fail}",
                         )
-                        await asyncio.sleep(int(e.seconds) + 100)
+                        time.sleep(int(e.seconds) + 100)
                     except Exception as f:
                         await event.reply(
                             f"This {group_username} group is not get joined due something error : `{f}`"
                         )
                         fail += 1
                     if int(success) % 3 == 0:
-                        time = random.randint(300, 400)
+                        stime = random.randint(300, 400)
                         await event.client.send_message(
                             event.chat_id,
                             f"Till Now Groups Joined :  `{success}`\nTill Now Its Fail : `{fail}`",
                         )
                     else:
-                        time = random.randint(30, 60)
-                    await asyncio.sleep(time)
+                        stime = random.randint(30, 60)
+                    time.sleep(stime)
                 await legend.disconnect()
                 await event.client.send_message(
                     event.chat_id,
@@ -178,7 +178,7 @@ async def users(event):
                                 event.chat_id,
                                 f"You have a floodwait of {e.value} Seconds\nPlease wait end of floodwait i will inform you",
                             )
-                            await asyncio.sleep(int(e.value) + 100)
+                            time.sleep(int(e.value) + 100)
                             continue
                         except Exception as e:
                             links.remove(i)
@@ -186,7 +186,7 @@ async def users(event):
                                 f"This {i} group is not get joined due something error : `{e}`"
                             )
                             continue
-                        await asyncio.sleep(100)
+                        time.sleep(100)
         except Exception as e:
             await event.reply(f"Something Error : `{e}`")
         to_write = ""
@@ -230,6 +230,10 @@ async def forward(event):
         downloaa = await grpid.download_media()
         await x.send_message("GIVE ME THE LINK OF MESSAGE")
         message_link = await x.get_response()
+        parts = message_link.text.split("/")
+        channel_username = parts[3]
+        message_id = int(parts[4])
+        msg_id = await event.client.get_messages(channel_username, ids=message_id)
         try:
             with open(downloaa, "r") as f:
                 content = f.read()
@@ -255,10 +259,6 @@ async def forward(event):
                 try:
                     success = 0
                     fail = 0
-                    parts = message_link.text.split("/")
-                    channel_username = parts[3]
-                    message_id = int(parts[4])
-                    msg_id = await legend.get_messages(channel_username, ids=message_id)
                     while True:
                         for i in owo:
                             while cancelf == False:
@@ -274,21 +274,21 @@ async def forward(event):
                                     event.chat_id,
                                     f"You have a floodwait of {int(e.seconds/60)} Minute & {int(e.seconds % 60)}.Please Wait Be Patience \nTill Now Group in sended : {success}\nTill Now Fail : {fail}",
                                 )
-                                await asyncio.sleep(int(e.seconds) + 100)
+                                time.sleep(int(e.seconds) + 100)
                             except Exception as e:
                                 await event.reply(
                                     f"Error in sending message in {i} due to : `{e}`"
                                 )
                                 fail += 1
                             if int(success) % 200 == 0:
-                                time = random.randint(900, 1200)
+                                stime = random.randint(900, 1200)
                                 await event.client.send_message(
                                     event.chat_id,
                                     f"Till Now Groups in Sended :  `{success}`\nTill Now Its Fail : `{fail}`",
                                 )
                             else:
-                                time = random.randint(1, 5)
-                            await asyncio.sleep(time)
+                                stime = random.randint(1, 5)
+                            time.sleep(stime)
                 except Exception as e:
                     await event.client.send_message(
                         event.chat_id,
@@ -314,12 +314,12 @@ async def forward(event):
                     try:
                         success = 0
                         fail = 0
-                        parts = message_link.text.split("/")
-                        channel_username = parts[3]
-                        message_id = int(parts[4])
-                        msg_id = await plegend.get_messages(
-                            channel_username, message_ids=message_id
-                        )
+                        #parts = message_link.text.split("/")
+                        #channel_username = parts[3]
+                        #message_id = int(parts[4])
+                        #msg_id = await plegend.get_messages(
+                            #channel_username, message_ids=message_id
+                        #)
                         while True:
                             for i in owo:
                                 while cancelf == False:
@@ -335,21 +335,21 @@ async def forward(event):
                                         event.chat_id,
                                         f"You have a floodwait of {int(e.value/60)} Minute & {int(e.value % 60)}.Please Wait Be Patience \nTill Now Group in sended : {success}\nTill Now Fail : {fail}",
                                     )
-                                    await asyncio.sleep(int(e.value) + 100)
+                                    time.sleep(int(e.value) + 100)
                                 except Exception as e:
                                     await event.reply(
                                         f"Error in sending message in {i} due to : `{e}`"
                                     )
                                     fail += 1
                                 if int(success) % 200 == 0:
-                                    time = random.randint(900, 1200)
+                                    stime = random.randint(900, 1200)
                                     await event.client.send_message(
                                         event.chat_id,
                                         f"Till Now Groups in Sended :  `{success}`\nTill Now Its Fail : `{fail}`",
                                     )
                                 else:
-                                    time = random.randint(2, 7)
-                                await asyncio.sleep(time)
+                                    stime = random.randint(2, 7)
+                                time.sleep(stime)
                     except Exception as e:
                         await event.client.send_message(
                             event.chat_id,
