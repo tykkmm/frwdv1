@@ -328,7 +328,7 @@ async def forward(event):
                                         f"Successfully Cancelled and Till Completed Your Task\nTotal Groups in Sended : {success}\nTotal Fail : {fail}",
                                     )
                                 try:
-                                    await plegend.forward_messages(chat_id, msg_id)
+                                    await plegend.forward_messages(i, msg_id)
                                     success += 1
                                 except pyro_errors.FloodWait as e:
                                     await event.client.send_message(
@@ -348,7 +348,7 @@ async def forward(event):
                                         f"Till Now Groups in Sended :  `{success}`\nTill Now Its Fail : `{fail}`",
                                     )
                                 else:
-                                    time = random.randint(1, 5)
+                                    time = random.randint(2, 7)
                                 await asyncio.sleep(time)
                     except Exception as e:
                         await event.client.send_message(
