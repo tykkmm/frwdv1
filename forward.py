@@ -276,7 +276,7 @@ async def forward(event):
                                     event.chat_id,
                                     f"You have a floodwait of {int(e.seconds/60)} Minute & {int(e.seconds % 60)}.Please Wait Be Patience \nTill Now Group in sended : {success}\nTill Now Fail : {fail}",
                                 )
-                                time.sleep(int(e.seconds) + 100)
+                                await asyncio.sleep(int(e.seconds) + 100)
                             except Exception as e:
                                 await event.reply(
                                     f"Error in sending message in {i} due to : `{e}`"
@@ -316,12 +316,6 @@ async def forward(event):
                     try:
                         success = 0
                         fail = 0
-                        # parts = message_link.text.split("/")
-                        # channel_username = parts[3]
-                        # message_id = int(parts[4])
-                        # msg_id = await plegend.get_messages(
-                        # channel_username, message_ids=message_id
-                        # )
                         while True:
                             for i in owo:
                                 while cancelf == False:
@@ -339,7 +333,7 @@ async def forward(event):
                                         event.chat_id,
                                         f"You have a floodwait of {int(e.value/60)} Minute & {int(e.value % 60)}.Please Wait Be Patience \nTill Now Group in sended : {success}\nTill Now Fail : {fail}",
                                     )
-                                    time.sleep(int(e.value) + 100)
+                                    await asyncio.sleep(int(e.value) + 100)
                                 except Exception as e:
                                     await event.reply(
                                         f"Error in sending message in {i} due to : `{e}`"
