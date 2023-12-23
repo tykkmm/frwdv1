@@ -372,13 +372,10 @@ async def forward(event):
 
 async def startup_process():
     for i in SUDO_USERS:
-        await client.send_file(
-            i,
-            file="https://telegra.ph/file/2707a66c92ba3c2e40cee.jpg",
-            caption=f"#START\n\nVersion:- α • 1.0\n\nYour Ads Promotion Bot Has Been Started Successfully",
-            buttons=option_keyboard,
-        )
-
+        try:
+            await client.send_file(i, file="https://telegra.ph/file/2707a66c92ba3c2e40cee.jpg", caption=f"#START\n\nVersion:- α • 1.0\n\nYour Ads Promotion Bot Has Been Started Successfully", buttons=option_keyboard)
+        except:
+            pass
 
 client.loop.run_until_complete(startup_process())
 
