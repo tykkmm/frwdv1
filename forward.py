@@ -331,7 +331,9 @@ async def forward(event):
                                         f"Successfully Cancelled and Till Completed Your Task\nTotal Groups in Sended : {success}\nTotal Fail : {fail}",
                                     )
                                 try:
-                                    await plegend.forward_messages(i, msg_id.chat_id, msg_id.message_id)
+                                    await plegend.forward_messages(
+                                        i, msg_id.chat_id, msg_id.message_id
+                                    )
                                     success += 1
                                 except pyro_errors.FloodWait as e:
                                     await event.client.send_message(
