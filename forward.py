@@ -331,7 +331,7 @@ async def forward(event):
                                     )
                                 try:
                                     await plegend.forward_messages(
-                                        i, msg_id.chat_id, msg_id.id
+                                        i, msg_id.chat.id, msg_id.message_id
                                     )
                                     success += 1
                                 except pyro_errors.FloodWait as e:
