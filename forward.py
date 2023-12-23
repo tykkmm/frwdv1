@@ -232,10 +232,6 @@ async def forward(event):
         downloaa = await grpid.download_media()
         await x.send_message("GIVE ME THE LINK OF MESSAGE")
         message_link = await x.get_response()
-        parts = message_link.text.split("/")
-        channel_username = parts[3]
-        message_id = int(parts[4])
-        msg_id = await event.client.get_messages(channel_username, ids=message_id)
         try:
             with open(downloaa, "r") as f:
                 content = f.read()
@@ -261,6 +257,10 @@ async def forward(event):
                 try:
                     success = 0
                     fail = 0
+                    parts = message_link.text.split("/")
+                    channel_username = parts[3]
+                    message_id = int(parts[4])
+                    msg_id = await event.client.get_messages(channel_username, ids=message_id)
                     while True:
                         for i in owo:
                             while cancelf == False:
