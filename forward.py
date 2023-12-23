@@ -299,10 +299,42 @@ async def forward(event):
                     await legend.run_until_disconnected()
                 except Exception as e:
                     LOGS.error(e)
-                await event.client.send_message(
-                    event.chat_id,
-                    f"Successfully Completed Your Task\nTotal Groups Sended : {success}\nTotal Fail : {fail}",
-                )
+            else:
+                async with Client(
+                    "prolegend",
+                    api_id=API_ID,
+                    api_hash=API_HASH,
+                    session_string=strses.text,
+                ) as plegend:
+                    try:
+                        success = 0
+                        fail = 0
+                        msg_id = await app.get_messages(message_link)
+                        while True:
+                            for i in owo:
+                                while cancelf == False:
+                                    return await event.client.send_message(event.chat_id, f"Successfully Cancelled and Till Completed Your Task\nTotal Groups in Sended : {success}\nTotal Fail : {fail}")
+                                try:
+                                    await app.forward_messages(chat_id, msg_id)
+                                    success += 1
+                                except pyro_errors.FloodWait as e:
+                                    await event.client.send_message(event.chat_id, f"You have a floodwait of {int(e.value/60)} Minute & {int(e.value % 60)}.Please Wait Be Patience \nTill Now Group in sended : {success}\nTill Now Fail : {fail}")
+                                    await asyncio.sleep(int(e.value) + 100)
+                                except Exception as e:
+                                    await event.reply(f"Error in sending message in {i} due to : `{e}`")
+                                    fail += 1
+                                if int(success) % 200 == 0:
+                                    time = random.randint(900, 1200)
+                                    await event.client.send_message(event.chat_id, f"Till Now Groups in Sended :  `{success}`\nTill Now Its Fail : `{fail}`")
+                                else:
+                                    time = random.randint(1, 5)
+                                await asyncio.sleep(time)
+                    except Exception as e:
+                        await event.client.send_message(event.chat_id, f"Error in getting message : {e}", buttons=option_keyboard)
+            await event.client.send_message(
+                event.chat_id,
+                f"Successfully Completed Your Task\nTotal Groups Sended : {success}\nTotal Fail : {fail}",
+            )
         except Exception as e:
             return await event.reply(
                 f"Something Error : `{e}`", buttons=option_keyboard
@@ -313,7 +345,7 @@ async def forward(event):
 
 
 async def startup_process():
-    for i in SUDO_USERS:
+    for i in SUDO_USERS: 
         await client.send_file(
             i,
             file="https://telegra.ph/file/2707a66c92ba3c2e40cee.jpg",
