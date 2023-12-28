@@ -51,6 +51,13 @@ async def start(event):
 
 cancelj = False
 
+total = 0
+
+@client.on(events.NewMessage(pattern="/stats"))
+async def ttodjssk(event):
+    global total
+    return await event.reply(f"Total Running : {total}")
+
 
 @client.on(events.NewMessage(pattern="/cj"))
 async def cancelj(event):
@@ -68,9 +75,11 @@ async def cancelj(event):
 
 @client.on(events.callbackquery.CallbackQuery(data=re.compile(b"join")))
 async def users(event):
-    global cancelj
+    global cancelj, total
     links = []
     final_links = []
+    if total > 2: 
+        return await event.reply(f"Something Error Quota Exhausted")
     async with client.conversation(event.chat_id) as x:
         await x.send_message("GIVE ME TELETHON/PYROGRAM STRING SESSION")
         strses = await x.get_response()
@@ -106,6 +115,7 @@ async def users(event):
             )
             final_num = await x.get_response()
             cancelj = True
+            total += 1
             if strses.text.endswith("="):
                 legend = TelegramClient(StringSession(strses.text), API_ID, API_HASH)
                 await legend.connect()
@@ -117,6 +127,7 @@ async def users(event):
                 msg_id = await legend.get_messages(channel_username, ids=message_id)
                 for i in range(int(initial_num.text), int(final_num.text)):
                     while cancelj == False:
+                        total -= 1
                         await event.client.send_message(
                             event.chat_id,
                             f"Successfully Cancelled and Till Completed Your Task\nTotal Groups Joined : {success}\nTotal Fail : {fail}",
@@ -145,8 +156,6 @@ async def users(event):
                             f"You have a floodwait of {int(e.seconds/60)} Minute & {int(e.seconds % 60)} Seconds .Please Wait Be Patience \nTill Now Group Joined : {success}\nTill Now Fail : {fail}",
                         )
                         await asyncio.sleep(int(e.seconds) + 100)
-                    except error.Forbidden:
-                        pass
                     except Exception as f:
                         await event.reply(
                             f"This {group_username} group is not get joined due something error : `{f}`"
@@ -193,6 +202,7 @@ async def users(event):
                         time.sleep(100)
         except Exception as e:
             await event.reply(f"Something Error : `{e}`")
+        total -= 1
         to_write = ""
         for i in final_links:
             to_write += f"{i}\n"
@@ -207,7 +217,7 @@ async def users(event):
 
 cancelf = False
 
-
+        
 @client.on(events.NewMessage(pattern="/cf"))
 async def cancelf(event):
     global cancelf
@@ -224,7 +234,7 @@ async def cancelf(event):
 
 @client.on(events.callbackquery.CallbackQuery(data=re.compile(b"forward")))
 async def forward(event):
-    global cancelf
+    global cancelf, total
     owo = []
     async with client.conversation(event.chat_id) as x:
         await x.send_message("GIVE ME TELETHON/PYROGRAM STRING SESSION")
@@ -253,6 +263,7 @@ async def forward(event):
                 event.chat_id, f"Total Groups in the list : {len(owo)}"
             )
             cancelf = True
+            total += 1
             if strses.text.endswith("="):
                 legend = TelegramClient(StringSession(strses.text), API_ID, API_HASH)
                 await legend.connect()
@@ -266,6 +277,7 @@ async def forward(event):
                     while True:
                         for i in owo:
                             while cancelf == False:
+                                total -= 1
                                 return await event.client.send_message(
                                     event.chat_id,
                                     f"Successfully Cancelled and Till Completed Your Task\nTotal Groups in Sended : {success}\nTotal Fail : {fail}",
@@ -326,6 +338,7 @@ async def forward(event):
                         while True:
                             for i in owo:
                                 while cancelf == False:
+                                    total -= 1
                                     return await event.client.send_message(
                                         event.chat_id,
                                         f"Successfully Cancelled and Till Completed Your Task\nTotal Groups in Sended : {success}\nTotal Fail : {fail}",
@@ -369,6 +382,7 @@ async def forward(event):
                             f"Error in getting message : {e}",
                             buttons=option_keyboard,
                         )
+            total -= 1
             await event.client.send_message(
                 event.chat_id,
                 f"Successfully Completed Your Task\nTotal Groups Sended : {success}\nTotal Fail : {fail}",
