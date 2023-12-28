@@ -53,6 +53,7 @@ cancelj = False
 
 total = 0
 
+
 @client.on(events.NewMessage(pattern="/stats"))
 async def ttodjssk(event):
     global total
@@ -78,7 +79,7 @@ async def users(event):
     global cancelj, total
     links = []
     final_links = []
-    if total > 2: 
+    if total > 2:
         return await event.reply(f"Something Error Quota Exhausted")
     async with client.conversation(event.chat_id) as x:
         await x.send_message("GIVE ME TELETHON/PYROGRAM STRING SESSION")
@@ -217,7 +218,7 @@ async def users(event):
 
 cancelf = False
 
-        
+
 @client.on(events.NewMessage(pattern="/cf"))
 async def cancelf(event):
     global cancelf
