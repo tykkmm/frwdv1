@@ -342,6 +342,10 @@ async def forward(event):
                                     )
                                     await asyncio.sleep(int(e.value) + 100)
                                 except pyro_errors.Forbidden as e:
+                                    await event.reply(f"Forbidden Error in `{i}`: `{e}`")
+                                except pyro_errors.BadRequest as e:
+                                    await event.reply(f"BadRequest Error in `{i}` Remove this group from list")
+                                except pyro_errors.SlowMode as e:
                                     pass
                                 except Exception as e:
                                     await event.reply(
