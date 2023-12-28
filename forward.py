@@ -349,8 +349,6 @@ async def forward(event):
                                     await event.reply(
                                         f"BadRequest Error in `{i}` Remove this group from list"
                                     )
-                                except pyro_errors.SlowMode as e:
-                                    pass
                                 except Exception as e:
                                     await event.reply(
                                         f"Error in sending message in {i} due to : `{e}`"
