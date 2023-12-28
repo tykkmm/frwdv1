@@ -145,6 +145,8 @@ async def users(event):
                             f"You have a floodwait of {int(e.seconds/60)} Minute & {int(e.seconds % 60)} Seconds .Please Wait Be Patience \nTill Now Group Joined : {success}\nTill Now Fail : {fail}",
                         )
                         await asyncio.sleep(int(e.seconds) + 100)
+                    except error.Forbidden:
+                        pass
                     except Exception as f:
                         await event.reply(
                             f"This {group_username} group is not get joined due something error : `{f}`"
