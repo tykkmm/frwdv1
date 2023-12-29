@@ -363,14 +363,14 @@ async def forward(event):
                                     )
                                 except pyro_errors.BadRequest as e:
                                     await event.reply(
-                                        f"BadRequest Error in `{i}` Remove this group from list"
+                                        f"BadRequest Error in `{i}` : `{e}`"
                                     )
                                 except Exception as e:
                                     await event.reply(
                                         f"Error in sending message in {i} due to : `{e}`"
                                     )
                                     fail += 1
-                                if int(success) % 200 == 0:
+                                if int(success) % 400 == 0:
                                     stime = random.randint(900, 1200)
                                     await event.client.send_message(
                                         event.chat_id,
