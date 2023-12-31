@@ -306,7 +306,7 @@ async def forward(event):
                                     f"Error in sending message in {i} due to : `{e}`"
                                 )
                                 fail += 1
-                            if int(success) % 200 == 0:
+                            if int(success) % len(owo) == 0:
                                 stime = random.randint(900, 1200)
                                 await event.client.send_message(
                                     event.chat_id,
@@ -375,7 +375,7 @@ async def forward(event):
                                         f"Error in sending message in {i} due to : `{e}`"
                                     )
                                     fail += 1
-                                if int(success) % {len(owo)} == 0:
+                                if int(success) % len(owo) == 0:
                                     stime = random.randint(1200, 1500)
                                     await event.client.send_message(
                                         event.chat_id,
