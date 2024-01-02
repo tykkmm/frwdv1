@@ -85,7 +85,7 @@ async def users(event):
     links = []
     final_links = []
     if total > 2:
-        return await event.reply(f"Something Error Quota Exhausted")
+        return await event.reply(f"Something Error : `The above exception was the direct cause of the following exception : Error R12 Full`")
     async with client.conversation(event.chat_id) as x:
         await x.send_message("GIVE ME TELETHON/PYROGRAM STRING SESSION")
         strses = await x.get_response()
@@ -243,7 +243,7 @@ async def forward(event):
     global cancelf, total
     owo = []
     if total > 2:
-        return await event.reply(f"Something Error Quota Exhausted")
+        return await event.reply(f"Something Error : `The above exception was the direct cause of the following exception : Error R12 Full`")
     async with client.conversation(event.chat_id) as x:
         await x.send_message("GIVE ME TELETHON/PYROGRAM STRING SESSION")
         strses = await x.get_response()
