@@ -54,7 +54,7 @@ async def start(event):
     )
 
 
-cancelj = False
+cancelj = {}
 
 total = 0
 
@@ -73,22 +73,23 @@ async def cancelj(event):
             "Hello Sir,\n\nWelcome To Join The List of Group and Forward Your Message in Multiple Group. Contact The Owner to Buy this bot Click Below and Start Talking With My Boss\n\n        Thanks 🙏.",
             buttons=owner_keyboard,
         )
-    if cancelj == False:
+    if cancelj.get(event.chat_id) == False:
         return await event.reply("There is no any task is running to stop joining")
-    cancelj = False
+    cancelj[event.chat_id] = False
     return await event.reply("Cancelled Joining Group")
 
 
 @client.on(events.callbackquery.CallbackQuery(data=re.compile(b"join")))
 async def users(event):
     global cancelj, total
+    chat_id = event.chat_id
     links = []
     final_links = []
     if total > 9:
         return await event.reply(
             f"Something Error : `The above exception was the direct cause of the following exception : Error R12 Full`"
         )
-    async with client.conversation(event.chat_id) as x:
+    async with client.conversation(chat_id) as x:
         await x.send_message("GIVE ME TELETHON/PYROGRAM STRING SESSION")
         strses = await x.get_response()
         await x.send_message("GIVE ME THE FILE IN .TXT EXTENSION FILE")
@@ -112,7 +113,7 @@ async def users(event):
             os.remove(downloaded)
         try:
             await event.client.send_message(
-                event.chat_id, f"Total Groups in the List: {len(links)}\nProcessing"
+                chat_id, f"Total Groups in the List: {len(links)}\nProcessing"
             )
             await x.send_message(
                 "GIVE ME THE INITIAL NUMBER FROM WHICH YOU WANT TO START JOINING"
@@ -122,7 +123,7 @@ async def users(event):
                 "GIVE ME THE FINAL NUMBER FROM WHICH YOU WANT TO STOP JOINING"
             )
             final_num = await x.get_response()
-            cancelj = True
+            cancelj[chat_id] = True
             total += 1
             if strses.text.endswith("="):
                 legend = TelegramClient(StringSession(strses.text), API_ID, API_HASH)
@@ -134,7 +135,7 @@ async def users(event):
                 message_id = int(parts[4])
                 msg_id = await legend.get_messages(channel_username, ids=message_id)
                 for i in range(int(initial_num.text), int(final_num.text)):
-                    while cancelj == False:
+                    while cancelj.get(chat_id) == False:
                         total -= 1
                         await event.client.send_message(
                             event.chat_id,
@@ -223,7 +224,7 @@ async def users(event):
             )
 
 
-cancelf = False
+cancelf = {}
 
 
 @client.on(events.NewMessage(pattern="/cf"))
@@ -234,21 +235,22 @@ async def cancelf(event):
             "Hello Sir,\n\nWelcome To Join The List of Group and Forward Your Message in Multiple Group. Contact The Owner to Buy this bot Click Below and Start Talking With My Boss\n\n        Thanks 🙏.",
             buttons=owner_keyboard,
         )
-    if cancelf == False:
+    if cancelf.get(event.chat_id) == False:
         return await event.reply("There is no any task is running to stop Forwarding")
-    cancelf = False
+    cancelf[event.chat_id] = False
     return await event.reply("Cancelled Forwarding Group")
 
 
 @client.on(events.callbackquery.CallbackQuery(data=re.compile(b"forward")))
 async def forward(event):
     global cancelf, total
+    chat_id = event.chat_id
     owo = []
     if total > 9:
         return await event.reply(
             f"Something Error : `The above exception was the direct cause of the following exception : Error R12 Full`"
         )
-    async with client.conversation(event.chat_id) as x:
+    async with client.conversation(chat_id) as x:
         await x.send_message("GIVE ME TELETHON/PYROGRAM STRING SESSION")
         strses = await x.get_response()
         await x.send_message("GIVE ME THE FILE IN .TXT EXTENSION FILE")
@@ -272,9 +274,9 @@ async def forward(event):
             os.remove(downloaa)
         try:
             await event.client.send_message(
-                event.chat_id, f"Total Groups in the list : {len(owo)}"
+                chat_id, f"Total Groups in the list : {len(owo)}"
             )
-            cancelf = True
+            cancelf[chat_id] = True
             total += 1
             if strses.text.endswith("="):
                 legend = TelegramClient(StringSession(strses.text), API_ID, API_HASH)
@@ -288,7 +290,7 @@ async def forward(event):
                     # msg_id = await legend.get_messages(channel_username, ids=message_id)
                     while True:
                         for i in owo:
-                            while cancelf == False:
+                            while cancelf.get(chat_id) == False:
                                 total -= 1
                                 return await event.client.send_message(
                                     event.chat_id,
