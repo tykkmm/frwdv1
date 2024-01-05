@@ -380,7 +380,7 @@ async def forward(event):
                                     )
                                     fail += 1
                                 if int(success) % len(owo) == 0:
-                                    stime = random.randint(600, 800)
+                                    stime = random.randint(1200, 1500)
                                     await event.client.send_message(
                                         event.chat_id,
                                         f"Till Now Groups in Sended :  `{success}`\nTill Now Its Fail : `{fail}`",
