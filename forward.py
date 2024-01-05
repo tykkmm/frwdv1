@@ -73,7 +73,7 @@ async def cancelggjccjj(event):
             "Hello Sir,\n\nWelcome To Join The List of Group and Forward Your Message in Multiple Group. Contact The Owner to Buy this bot Click Below and Start Talking With My Boss\n\n        Thanks 🙏.",
             buttons=owner_keyboard,
         )
-    if cancelj[event.chat_id]== False:
+    if cancelj[event.chat_id] == False:
         return await event.reply("There is no any task is running to stop joining")
     cancelj[event.chat_id] = False
     return await event.reply("Cancelled Joining Group")
