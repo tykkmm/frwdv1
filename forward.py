@@ -82,7 +82,8 @@ async def cancelj(event):
 @client.on(events.callbackquery.CallbackQuery(data=re.compile(b"join")))
 async def users(event):
     global cancelj, total
-    chat_id = event.chat_id
+    chat_id = event.chat_id()
+    print(chat_id)
     links = []
     final_links = []
     if total > 9:
