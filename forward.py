@@ -351,7 +351,7 @@ async def forward(event):
                         message_id = int(parts[4])
                         while True:
                             for i in owo:
-                                while cancelf == False:
+                                while cancelf.get(chat_id) == False:
                                     total -= 1
                                     return await event.client.send_message(
                                         event.chat_id,
