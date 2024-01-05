@@ -229,7 +229,7 @@ cancelf = {}
 
 
 @client.on(events.NewMessage(pattern="/cf"))
-async def cancelf(event):
+async def cancevddlf(event):
     global cancelf
     if not check_sudo(event.sender_id):
         return await event.reply(
