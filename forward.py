@@ -66,14 +66,14 @@ async def ttodjssk(event):
 
 
 @client.on(events.NewMessage(pattern="/cj"))
-async def cancelj(event):
+async def cancelggjccjj(event):
     global cancelj
     if not check_sudo(event.sender_id):
         return await event.reply(
             "Hello Sir,\n\nWelcome To Join The List of Group and Forward Your Message in Multiple Group. Contact The Owner to Buy this bot Click Below and Start Talking With My Boss\n\n        Thanks 🙏.",
             buttons=owner_keyboard,
         )
-    if cancelj.get(event.chat_id) == False:
+    if cancelj[event.chat_id]== False:
         return await event.reply("There is no any task is running to stop joining")
     cancelj[event.chat_id] = False
     return await event.reply("Cancelled Joining Group")
@@ -136,7 +136,7 @@ async def users(event):
                 message_id = int(parts[4])
                 msg_id = await legend.get_messages(channel_username, ids=message_id)
                 for i in range(int(initial_num.text), int(final_num.text)):
-                    if cancelj.get(chat_id) == False:
+                    if cancelj[chat_id] == False:
                         total -= 1
                         await event.client.send_message(
                             event.chat_id,
