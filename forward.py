@@ -84,7 +84,7 @@ async def users(event):
     global cancelj, total
     links = []
     final_links = []
-    if total > 3:
+    if total > 9:
         return await event.reply(
             f"Something Error : `The above exception was the direct cause of the following exception : Error R12 Full`"
         )
@@ -244,7 +244,7 @@ async def cancelf(event):
 async def forward(event):
     global cancelf, total
     owo = []
-    if total > 3:
+    if total > 9:
         return await event.reply(
             f"Something Error : `The above exception was the direct cause of the following exception : Error R12 Full`"
         )
