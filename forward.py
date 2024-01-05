@@ -82,8 +82,7 @@ async def cancelj(event):
 @client.on(events.callbackquery.CallbackQuery(data=re.compile(b"join")))
 async def users(event):
     global cancelj, total
-    chat_id = event.chat_id()
-    print(chat_id)
+    chat_id = event.chat_id
     links = []
     final_links = []
     if total > 9:
@@ -125,6 +124,7 @@ async def users(event):
             )
             final_num = await x.get_response()
             cancelj[chat_id] = True
+            print("ok")
             total += 1
             if strses.text.endswith("="):
                 legend = TelegramClient(StringSession(strses.text), API_ID, API_HASH)
@@ -136,7 +136,7 @@ async def users(event):
                 message_id = int(parts[4])
                 msg_id = await legend.get_messages(channel_username, ids=message_id)
                 for i in range(int(initial_num.text), int(final_num.text)):
-                    while cancelj.get(chat_id) == False:
+                    if cancelj.get(chat_id) == False:
                         total -= 1
                         await event.client.send_message(
                             event.chat_id,
