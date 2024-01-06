@@ -310,6 +310,7 @@ async def forward(event):
                                 await asyncio.sleep(int(e.seconds) + 100)
                             except:
                                 fail += 1
+                                pass
                             if int(success) % len(owo) == 0:
                                 stime = random.randint(900, 1200)
                                 await event.client.send_message(
@@ -374,11 +375,9 @@ async def forward(event):
                                     await event.reply(
                                         f"BadRequest Error in `{i}` : `{e}`"
                                     )
-                                except Exception as e:
-                                    await event.reply(
-                                        f"Error in sending message in {i} due to : `{e}`"
-                                    )
+                                except:
                                     fail += 1
+                                    pass
                                 if int(success) % len(owo) == 0:
                                     stime = random.randint(1200, 1500)
                                     await event.client.send_message(
