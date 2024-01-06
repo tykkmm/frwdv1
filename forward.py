@@ -379,7 +379,7 @@ async def forward(event):
                                         f"Till Now Groups in Sended :  `{success}`\nTill Now Its Fail : `{fail}`",
                                     )
                                 else:
-                                    stime = random.randint(1, 3)
+                                    stime = random.randint(1, 4)
                                 await asyncio.sleep(stime)
                     except Exception as e:
                         await event.client.send_message(
