@@ -85,7 +85,7 @@ async def users(event):
     chat_id = event.chat_id
     links = []
     final_links = []
-    if total > 9:
+    if total > LIMIT:
         return await event.reply(
             f"Something Error : `The above exception was the direct cause of the following exception : Error R12 Full`"
         )
@@ -247,7 +247,7 @@ async def forward(event):
     global cancelf, total
     chat_id = event.chat_id
     owo = []
-    if total > 9:
+    if total > LIMIT:
         return await event.reply(
             f"Something Error : `The above exception was the direct cause of the following exception : Error R12 Full`"
         )
@@ -366,10 +366,6 @@ async def forward(event):
                                         f"You have a floodwait of {int(e.value/60)} Minute & {int(e.value % 60)}.Please Wait Be Patience \nTill Now Group in sended : {success}\nTill Now Fail : {fail}",
                                     )
                                     await asyncio.sleep(int(e.value) + 100)
-                                except pyro_errors.Forbidden as e:
-                                    await event.reply(
-                                        f"Forbidden Error in `{i}`: `{e}`"
-                                    )
                                 except pyro_errors.BadRequest as e:
                                     await event.reply(
                                         f"BadRequest Error in `{i}` : `{e}`"
