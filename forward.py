@@ -308,10 +308,7 @@ async def forward(event):
                                     f"You have a floodwait of {int(e.seconds/60)} Minute & {int(e.seconds % 60)}.Please Wait Be Patience \nTill Now Group in sended : {success}\nTill Now Fail : {fail}",
                                 )
                                 await asyncio.sleep(int(e.seconds) + 100)
-                            except Exception as e:
-                                await event.reply(
-                                    f"Error in sending message in {i} due to : `{e}`"
-                                )
+                            except:
                                 fail += 1
                             if int(success) % len(owo) == 0:
                                 stime = random.randint(900, 1200)
