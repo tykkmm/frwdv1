@@ -349,7 +349,7 @@ async def forward(event):
                         message_id = int(parts[4])
                         while True:
                             for i in owo:
-                                while cancelf.get(chat_id) == False:
+                                while cancelf[chat_id] == False:
                                     total -= 1
                                     return await event.client.send_message(
                                         event.chat_id,
@@ -366,11 +366,18 @@ async def forward(event):
                                         f"You have a floodwait of {int(e.value/60)} Minute & {int(e.value % 60)}.Please Wait Be Patience \nTill Now Group in sended : {success}\nTill Now Fail : {fail}",
                                     )
                                     await asyncio.sleep(int(e.value) + 100)
+                                except pyro_errors.Forbidden as e:
+                                    await event.reply(
+                                        f"Forbidden Error in `{i}`: `{e}`"
+                                    )
                                 except pyro_errors.BadRequest as e:
                                     await event.reply(
                                         f"BadRequest Error in `{i}` : `{e}`"
                                     )
-                                except:
+                                except Exception as e:
+                                    await event.reply(
+                                        f"Error in sending message in {i} due to : `{e}`"
+                                    )
                                     fail += 1
                                 if int(success) % len(owo) == 0:
                                     stime = random.randint(1200, 1500)
