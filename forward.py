@@ -336,7 +336,7 @@ async def forward(event):
                     )
             else:
                 async with Client(
-                    "prolegend",
+                    "proljs",
                     api_id=API_ID,
                     api_hash=API_HASH,
                     session_string=strses.text,
@@ -383,7 +383,7 @@ async def forward(event):
                                     stime = random.randint(1200, 1500)
                                     await event.client.send_message(
                                         event.chat_id,
-                                        f"Till Now Groups in Sended :  `{success}`\nTill Now Its Fail : `{fail}`",
+                                        f"Till Now Groups in Sended :  `{success}`\nTill Now Its Fail : `{fail}`\nSleeped For : `{stime}`",
                                     )
                                 else:
                                     stime = random.randint(1, 4)
