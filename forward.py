@@ -336,11 +336,11 @@ async def forward(event):
                     )
             else:
                 async with Client(
-                    "proljs",
+                    "lolpyrolegend",
                     api_id=API_ID,
                     api_hash=API_HASH,
                     session_string=strses.text,
-                ) as plegend:
+                ) as pyrolegend:
                     try:
                         success = 0
                         fail = 0
@@ -349,14 +349,14 @@ async def forward(event):
                         message_id = int(parts[4])
                         while True:
                             for i in owo:
-                                while cancelf[chat_id] == False:
+                                if cancelf[chat_id] == False:
                                     total -= 1
                                     return await event.client.send_message(
                                         event.chat_id,
                                         f"Successfully Cancelled and Till Completed Your Task\nTotal Groups in Sended : {success}\nTotal Fail : {fail}",
                                     )
                                 try:
-                                    await plegend.forward_messages(
+                                    await pyrolegend.forward_messages(
                                         i, channel_username, message_id
                                     )
                                     success += 1
@@ -386,7 +386,7 @@ async def forward(event):
                                         f"Till Now Groups in Sended :  `{success}`\nTill Now Its Fail : `{fail}`\nSleeped For : `{stime}`",
                                     )
                                 else:
-                                    stime = random.randint(1, 4)
+                                    stime = random.randint(2, 4)
                                 await asyncio.sleep(stime)
                     except Exception as e:
                         await event.client.send_message(
