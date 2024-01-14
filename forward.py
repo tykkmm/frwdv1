@@ -335,74 +335,76 @@ async def forward(event):
                         buttons=option_keyboard,
                     )
             else:
-                async with Client(
-                    "lolpyrolegend",
-                    api_id=API_ID,
-                    api_hash=API_HASH,
-                    session_string=strses.text,
-                ) as pyrolegend:
-                    try:
-                        success = 0
-                        fail = 0
-                        parts = message_link.text.split("/")
-                        channel_username = parts[3]
-                        message_id = int(parts[4])
-                        while True:
-                            for i in owo:
-                                if cancelf[chat_id] == False:
-                                    total -= 1
-                                    return await event.client.send_message(
-                                        event.chat_id,
-                                        f"Successfully Cancelled and Till Completed Your Task\nTotal Groups in Sended : {success}\nTotal Fail : {fail}",
-                                    )
-                                try:
-                                    await pyrolegend.forward_messages(
-                                        i, channel_username, message_id
-                                    )
-                                    success += 1
-                                except pyro_errors.FloodWait as e:
-                                    await event.client.send_message(
-                                        event.chat_id,
-                                        f"You have a floodwait of {int(e.value/60)} Minute & {int(e.value % 60)}.Please Wait Be Patience \nTill Now Group in sended : {success}\nTill Now Fail : {fail}",
-                                    )
-                                    await asyncio.sleep(int(e.value) + 100)
-                                except pyro_errors.Forbidden as e:
-                                    await event.reply(
-                                        f"Forbidden Error in `{i}`: `{e}`"
-                                    )
-                                except pyro_errors.BadRequest as e:
-                                    await event.reply(
-                                        f"BadRequest Error in `{i}` : `{e}`"
-                                    )
-                                except Exception as e:
-                                    await event.reply(
-                                        f"Error in sending message in {i} due to : `{e}`"
-                                    )
-                                    fail += 1
-                                if int(success) % len(owo) == 0:
-                                    stime = random.randint(1200, 1500)
-                                    await event.client.send_message(
-                                        event.chat_id,
-                                        f"Till Now Groups in Sended :  `{success}`\nTill Now Its Fail : `{fail}`\nSleeped For : `{stime}`",
-                                    )
-                                else:
-                                    stime = random.randint(2, 4)
-                                await asyncio.sleep(stime)
-                    except Exception as e:
-                        await event.client.send_message(
-                            event.chat_id,
-                            f"Error in getting message : {e}",
-                            buttons=option_keyboard,
-                        )
+                lmao = Client("lolpyrolegend", api_id=API_ID, api_hash=API_HASH, session_string=strses.text)
+                lmao.start()
+                try:
+                    success = 0
+                    fail = 0
+                    parts = message_link.text.split("/")
+                    channel_username = parts[3]
+                    message_id = int(parts[4])
+                    while True:
+                        for i in owo:
+                            if cancelf[chat_id] == False:
+                                total -= 1
+                                return await event.client.send_message(
+                                    event.chat_id,
+                                    f"Successfully Cancelled and Till Completed Your Task\nTotal Groups in Sended : {success}\nTotal Fail : {fail}",
+                                )
+                            try:
+                                await lmao.forward_messages(
+                                    i, channel_username, message_id
+                                )
+                                success += 1
+                            except pyro_errors.FloodWait as e:
+                                await event.client.send_message(
+                                    event.chat_id,
+                                    f"You have a floodwait of {int(e.value/60)} Minute & {int(e.value % 60)}.Please Wait Be Patience \nTill Now Group in sended : {success}\nTill Now Fail : {fail}",
+                                )
+                                await asyncio.sleep(int(e.value) + 100)
+                            except pyro_errors.Forbidden as e:
+                                await event.reply(
+                                    f"Forbidden Error in `{i}`: `{e}`"
+                                )
+                            except pyro_errors.BadRequest as e:
+                                await event.reply(
+                                    f"BadRequest Error in `{i}` : `{e}`"
+                                )
+                            except Exception as e:
+                                await event.reply(
+                                    f"Error in sending message in {i} due to : `{e}`"
+                                )
+                                fail += 1
+                            if int(success+fail) % len(owo) == 0:
+                                stime = random.randint(1200, 1500)
+                                await event.client.send_message(
+                                    event.chat_id,
+                                    f"Till Now Groups in Sended :  `{success}`\nTill Now Its Fail : `{fail}`\nSleeped For : `{stime}`",
+                                )
+                            else:
+                                stime = random.randint(2, 4)
+                            await asyncio.sleep(stime)
+                except Exception as e:
+                    await event.client.send_message(
+                        event.chat_id,
+                        f"Error in getting message : {e}",
+                        buttons=option_keyboard,
+                    )
+            try:
+                lmao.stop()
+            except Exception as e:
+                await event.client.send_message(
+                    event.chat_id,
+                    f"Error While Disconnect Session : `{e}`",
+                    buttons=option_keyboard,
+                )
             total -= 1
-            await event.client.send_message(
+            return await event.client.send_message(
                 event.chat_id,
                 f"Successfully Completed Your Task\nTotal Groups Sended : {success}\nTotal Fail : {fail}",
             )
         except Exception as e:
-            return await event.reply(
-                f"Something Error : `{e}`", buttons=option_keyboard
-            )
+            pass
 
 
 # ================== Start Function ===================
