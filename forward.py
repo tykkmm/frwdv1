@@ -4,10 +4,10 @@ import logging
 import os
 import random
 import re
-import sys
-import time
 import secrets
 import string
+import sys
+import time
 
 from pyrogram import Client
 from pyrogram import errors as pyro_errors
@@ -336,7 +336,10 @@ async def forward(event):
                         buttons=option_keyboard,
                     )
             else:
-                random_string = ''.join(secrets.choice(string.ascii_letters + string.digits) for _ in range(10))
+                random_string = "".join(
+                    secrets.choice(string.ascii_letters + string.digits)
+                    for _ in range(10)
+                )
                 lmao = Client(
                     f"{random_string}",
                     api_id=API_ID,
