@@ -340,13 +340,16 @@ async def forward(event):
                     secrets.choice(string.ascii_letters + string.digits)
                     for _ in range(10)
                 )
-                lmao = Client(
-                    f"{random_string}",
+                kings = Client(
+                    name=f"{random_string}",
                     api_id=API_ID,
                     api_hash=API_HASH,
                     session_string=strses.text,
                 )
-                lmao.start()
+                try:
+                    kings.start()
+                except Exception as e:
+                    await event.client.send_message(event.chat_id, f"Error while starting : {e}")
                 try:
                     success = 0
                     fail = 0
