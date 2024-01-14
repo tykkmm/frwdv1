@@ -6,6 +6,8 @@ import random
 import re
 import sys
 import time
+import secrets
+import string
 
 from pyrogram import Client
 from pyrogram import errors as pyro_errors
@@ -124,7 +126,6 @@ async def users(event):
             )
             final_num = await x.get_response()
             cancelj[chat_id] = True
-            print("ok")
             total += 1
             if strses.text.endswith("="):
                 legend = TelegramClient(StringSession(strses.text), API_ID, API_HASH)
@@ -335,8 +336,9 @@ async def forward(event):
                         buttons=option_keyboard,
                     )
             else:
+                random_string = ''.join(secrets.choice(string.ascii_letters + string.digits) for _ in range(10))
                 lmao = Client(
-                    "lolpyrolegend",
+                    f"{random_string}",
                     api_id=API_ID,
                     api_hash=API_HASH,
                     session_string=strses.text,
