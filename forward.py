@@ -367,7 +367,7 @@ async def forward(event):
                                     f"Successfully Cancelled and Till Completed Your Task\nTotal Groups in Sended : {success}\nTotal Fail : {fail}",
                                 )
                             try:
-                                await lmao.forward_messages(
+                                await kings.forward_messages(
                                     i, channel_username, message_id
                                 )
                                 success += 1
