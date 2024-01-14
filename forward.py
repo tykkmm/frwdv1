@@ -349,7 +349,9 @@ async def forward(event):
                 try:
                     kings.start()
                 except Exception as e:
-                    await event.client.send_message(event.chat_id, f"Error while starting : {e}")
+                    await event.client.send_message(
+                        event.chat_id, f"Error while starting : {e}"
+                    )
                 try:
                     success = 0
                     fail = 0
