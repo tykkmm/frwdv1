@@ -335,7 +335,12 @@ async def forward(event):
                         buttons=option_keyboard,
                     )
             else:
-                lmao = Client("lolpyrolegend", api_id=API_ID, api_hash=API_HASH, session_string=strses.text)
+                lmao = Client(
+                    "lolpyrolegend",
+                    api_id=API_ID,
+                    api_hash=API_HASH,
+                    session_string=strses.text,
+                )
                 lmao.start()
                 try:
                     success = 0
@@ -363,19 +368,15 @@ async def forward(event):
                                 )
                                 await asyncio.sleep(int(e.value) + 100)
                             except pyro_errors.Forbidden as e:
-                                await event.reply(
-                                    f"Forbidden Error in `{i}`: `{e}`"
-                                )
+                                await event.reply(f"Forbidden Error in `{i}`: `{e}`")
                             except pyro_errors.BadRequest as e:
-                                await event.reply(
-                                    f"BadRequest Error in `{i}` : `{e}`"
-                                )
+                                await event.reply(f"BadRequest Error in `{i}` : `{e}`")
                             except Exception as e:
                                 await event.reply(
                                     f"Error in sending message in {i} due to : `{e}`"
                                 )
                                 fail += 1
-                            if int(success+fail) % len(owo) == 0:
+                            if int(success + fail) % len(owo) == 0:
                                 stime = random.randint(1200, 1500)
                                 await event.client.send_message(
                                     event.chat_id,
@@ -403,7 +404,7 @@ async def forward(event):
                 event.chat_id,
                 f"Successfully Completed Your Task\nTotal Groups Sended : {success}\nTotal Fail : {fail}",
             )
-        except Exception as e:
+        except Exception:
             pass
 
 
