@@ -347,9 +347,9 @@ async def forward(event):
                     session_string=strses.text,
                 )
                 try:
-                    kings.start()
+                    await kings.start()
                 except Exception as e:
-                    await event.client.send_message(
+                    return await event.client.send_message(
                         event.chat_id, f"Error while starting : {e}"
                     )
                 try:
@@ -402,7 +402,7 @@ async def forward(event):
                         buttons=option_keyboard,
                     )
             try:
-                lmao.stop()
+                await kings.stop()
             except Exception as e:
                 await event.client.send_message(
                     event.chat_id,
