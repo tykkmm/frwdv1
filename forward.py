@@ -379,13 +379,16 @@ async def forward(event):
                                 await asyncio.sleep(int(e.value) + 100)
                             except pyro_errors.Forbidden as e:
                                 await event.reply(f"Forbidden Error in `{i}`: `{e}`")
+                                continue
                             except pyro_errors.BadRequest as e:
                                 await event.reply(f"BadRequest Error in `{i}` : `{e}`")
+                                continue
                             except Exception as e:
                                 await event.reply(
                                     f"Error in sending message in {i} due to : `{e}`"
                                 )
                                 fail += 1
+                                continue
                             if int(success + fail) % len(owo) == 0:
                                 stime = random.randint(1200, 1500)
                                 await event.client.send_message(
@@ -395,6 +398,7 @@ async def forward(event):
                             else:
                                 stime = random.randint(2, 4)
                             await asyncio.sleep(stime)
+                            continue
                 except Exception as e:
                     await event.client.send_message(
                         event.chat_id,
