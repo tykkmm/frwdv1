@@ -1,6 +1,5 @@
 import asyncio
 import contextlib
-import logging
 import os
 import random
 import re
@@ -16,7 +15,6 @@ from telethon.sessions import StringSession
 from telethon.tl.functions.channels import JoinChannelRequest as join
 
 from config import *
-
 
 client = TelegramClient("LegendBoy", API_ID, API_HASH).start(bot_token=TOKEN)
 
