@@ -383,8 +383,8 @@ async def forward(event):
                 event.chat_id,
                 f"Successfully Completed Your Task\nTotal Groups Sended : {success}\nTotal Fail : {fail}",
             )
-        except Exception:
-            pass
+    except Exception as e:
+        pass
 
 
 # ================== Start Function ===================
