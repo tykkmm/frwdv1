@@ -7,6 +7,7 @@ import secrets
 import string
 import sys
 import time
+import logging
 
 from pyrogram import Client
 from pyrogram import errors as pyro_errors
@@ -15,6 +16,13 @@ from telethon.sessions import StringSession
 from telethon.tl.functions.channels import JoinChannelRequest as join
 
 from config import *
+logging.basicConfig(
+    format="[%(asctime)s] [%(levelname)s] [%(name)s] : %(message)s",
+    level=logging.ERROR,
+    datefmt="%H:%M:%S",
+)
+
+LOGS = logging.getLogger("ForwardBot")
 
 client = TelegramClient("LegendBoy", API_ID, API_HASH).start(bot_token=TOKEN)
 
