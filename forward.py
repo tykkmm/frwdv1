@@ -252,99 +252,90 @@ async def forward(event):
         downloaa = await grpid.download_media()
         await x.send_message("GIVE ME THE LINK OF MESSAGE")
         message_link = await x.get_response()
-        try:
-            with open(downloaa, "r") as f:
-                content = f.read()
-                new_content = content.split("\n")
-                for i in new_content:
-                    i = i.replace("https://t.me/", "@").replace(" ", "").strip()
-                    owo.append(i)
-            os.remove(downloaa)
-        except Exception as e:
-            await event.reply(
-                f"**Something Error in Downloading File : ** `{e}`",
-                buttons=option_keyboard,
-            )
-            os.remove(downloaa)
-        try:
-            await event.client.send_message(
-                chat_id, f"Total Groups in the list : {len(owo)}"
-            )
-            cancelf[chat_id] = True
-            total += 1
-            if strses.text.endswith("="):
-                legend = TelegramClient(StringSession(strses.text), API_ID, API_HASH)
-                await legend.connect()
-                try:
-                    success = 0
-                    fail = 0
-                    parts = message_link.text.split("/")
-                    channel_username = parts[3]
-                    message_id = int(parts[4])
-                    # msg_id = await legend.get_messages(channel_username, ids=message_id)
-                    while True:
-                        for i in owo:
-                            while cancelf.get(chat_id) == False:
-                                total -= 1
-                                return await event.client.send_message(
-                                    event.chat_id,
-                                    f"Successfully Cancelled and Till Completed Your Task\nTotal Groups in Sended : {success}\nTotal Fail : {fail}",
-                                )
-                            try:
-                                await legend.forward_messages(
-                                    i, message_id, channel_username
-                                )
-                                success += 1
-                            except errors.FloodWaitError as e:
-                                await event.client.send_message(
-                                    event.chat_id,
-                                    f"You have a floodwait of {int(e.seconds/60)} Minute & {int(e.seconds % 60)}.Please Wait Be Patience \nTill Now Group in sended : {success}\nTill Now Fail : {fail}",
-                                )
-                                await asyncio.sleep(int(e.seconds) + 100)
-                            except:
-                                fail += 1
-                            if int(success) % len(owo) == 0:
-                                stime = random.randint(900, 1200)
-                                await event.client.send_message(
-                                    event.chat_id,
-                                    f"Till Now Groups in Sended :  `{success}`\nTill Now Its Fail : `{fail}`",
-                                )
-                            else:
-                                stime = random.randint(1, 5)
-                            await asyncio.sleep(stime)
-                except Exception as e:
-                    await event.client.send_message(
-                        event.chat_id,
-                        f"Error in getting message :` {e}`",
-                        buttons=option_keyboard,
-                    )
-                try:
-                    await legend.disconnect()
-                    # await legend.run_until_disconnected()
-                except Exception as e:
-                    await event.client.send_message(
-                        event.chat_id,
-                        f"Error While Disconnect Session : `{e}`",
-                        buttons=option_keyboard,
-                    )
-            else:
-                random_string = "".join(
-                    secrets.choice(string.ascii_letters + string.digits)
-                    for _ in range(10)
+    try:
+        with open(downloaa, "r") as f:
+            content = f.read()
+            new_content = content.split("\n")
+            for i in new_content:
+                i = i.replace("https://t.me/", "@").replace(" ", "").strip()
+                owo.append(i)
+        os.remove(downloaa)
+    except Exception as e:
+        os.remove(downloaa)
+        return await event.reply(
+        f"**Something Error in Downloading File : ** `{e}`",
+        buttons=option_keyboard,
+        )
+    try:
+        await event.client.send_message(
+            chat_id, f"Total Groups in the list : {len(owo)}"
+        )
+        cancelf[chat_id] = True
+        total += 1
+        if strses.text.endswith("="):
+            legend = TelegramClient(StringSession(strses.text), API_ID, API_HASH)
+            await legend.connect()
+            try:
+                success = 0
+                fail = 0
+                parts = message_link.text.split("/")
+                channel_username = parts[3]
+                message_id = int(parts[4])
+                while True:
+                    for i in owo:
+                        while cancelf.get(chat_id) == False:
+                            total -= 1
+                            return await event.client.send_message(
+                                event.chat_id,
+                                f"Successfully Cancelled and Till Completed Your Task\nTotal Groups in Sended : {success}\nTotal Fail : {fail}",
+                            )
+                        try:
+                            await legend.forward_messages(
+                                i, message_id, channel_username
+                            )
+                            success += 1
+                        except errors.FloodWaitError as e:
+                            await event.client.send_message(
+                                event.chat_id,
+                                f"You have a floodwait of {int(e.seconds/60)} Minute & {int(e.seconds % 60)}.Please Wait Be Patience \nTill Now Group in sended : {success}\nTill Now Fail : {fail}",
+                            )
+                            await asyncio.sleep(int(e.seconds) + 100)
+                        except Exception as e:
+                            fail += 1
+                        if int(success) % len(owo) == 0:
+                            stime = random.randint(900, 1200)
+                            await event.client.send_message(
+                                event.chat_id,
+                                f"Till Now Groups in Sended :  `{success}`\nTill Now Its Fail : `{fail}`",
+                            )
+                        else:
+                            stime = random.randint(1, 5)
+                        await asyncio.sleep(stime)
+            except Exception as e:
+                await event.client.send_message(
+                    event.chat_id,
+                    f"Error in getting message :` {e}`",
+                    buttons=option_keyboard,
+                   )
+            try:
+                await legend.disconnect()
+            except Exception as e:
+                await event.client.send_message(
+                    event.chat_id,
+                    f"Error While Disconnect Session : `{e}`",
+                    buttons=option_keyboard,
                 )
-                kings = Client(
-                    name=f"{random_string}",
-                    api_id=API_ID,
-                    api_hash=API_HASH,
-                    session_string=strses.text,
-                )
-                try:
-                    await kings.start()
-                except Exception as e:
-                    return await event.client.send_message(
-                        event.chat_id, f"Error while starting : {e}"
-                    )
-                try:
+        else:
+            random_string = "".join(
+                secrets.choice(string.ascii_letters + string.digits)
+                for _ in range(10)
+            )
+            async with Client(
+                name=f"{random_string}",
+                api_id=API_ID,
+                api_hash=API_HASH,
+                session_string=strses.text,
+            as kings:
                     success = 0
                     fail = 0
                     parts = message_link.text.split("/")
@@ -371,16 +362,13 @@ async def forward(event):
                                 await asyncio.sleep(int(e.value) + 100)
                             except pyro_errors.Forbidden as e:
                                 await event.reply(f"Forbidden Error in `{i}`: `{e}`")
-                                continue
                             except pyro_errors.BadRequest as e:
                                 await event.reply(f"BadRequest Error in `{i}` : `{e}`")
-                                continue
                             except Exception as e:
                                 await event.reply(
                                     f"Error in sending message in {i} due to : `{e}`"
                                 )
                                 fail += 1
-                                continue
                             if int(success + fail) % len(owo) == 0:
                                 stime = random.randint(1200, 1500)
                                 await event.client.send_message(
@@ -390,21 +378,6 @@ async def forward(event):
                             else:
                                 stime = random.randint(2, 4)
                             await asyncio.sleep(stime)
-                            continue
-                except Exception as e:
-                    await event.client.send_message(
-                        event.chat_id,
-                        f"Error in getting message : {e}",
-                        buttons=option_keyboard,
-                    )
-            try:
-                await kings.stop()
-            except Exception as e:
-                await event.client.send_message(
-                    event.chat_id,
-                    f"Error While Disconnect Session : `{e}`",
-                    buttons=option_keyboard,
-                )
             total -= 1
             return await event.client.send_message(
                 event.chat_id,
