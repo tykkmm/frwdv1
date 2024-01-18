@@ -334,7 +334,7 @@ async def forward(event):
                 name=f"{random_string}",
                 api_id=API_ID,
                 api_hash=API_HASH,
-                session_string=strses.text,
+                session_string=strses.text),
             as kings:
                     success = 0
                     fail = 0
