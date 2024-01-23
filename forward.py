@@ -366,10 +366,6 @@ async def forward(event):
                                         f"You have a floodwait of {int(e.value/60)} Minute & {int(e.value % 60)}.Please Wait Be Patience \nTill Now Group in sended : {success}\nTill Now Fail : {fail}",
                                     )
                                     await asyncio.sleep(int(e.value) + 100)
-                                except pyro_errors.Forbidden as e:
-                                    await event.reply(
-                                        f"Forbidden Error in `{i}`: `{e}`"
-                                    )
                                 except pyro_errors.BadRequest as e:
                                     await event.reply(
                                         f"BadRequest Error in `{i}` : `{e}`"
